@@ -117,7 +117,7 @@
             app:srcCompat="@drawable/oeil" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/masquer0"
             android:layout_width="60dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"

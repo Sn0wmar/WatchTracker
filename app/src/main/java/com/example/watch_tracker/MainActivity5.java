@@ -12,6 +12,17 @@ public class MainActivity5 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main5);
-}
+
+        ImageView mask = findViewById(R.id.masquer5);
+        mask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it5 = new Intent(getApplicationContext(), MainActivity6.class);
+                startActivity(it5);
+            }
+        });
+
+
+    }
 }
 
