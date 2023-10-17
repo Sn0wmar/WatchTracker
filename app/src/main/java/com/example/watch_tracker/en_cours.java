@@ -7,18 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class MainActivity3 extends AppCompatActivity {
+public class en_cours extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.en_cours);
 
         ImageView mask = findViewById(R.id.masquer3);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it3 = new Intent(getApplicationContext(), MainActivity4.class);
+                Intent it3 = new Intent(getApplicationContext(), visionne.class);
                 startActivity(it3);
             }
         });

@@ -7,22 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class MainActivity5 extends AppCompatActivity {
+public class visionne extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main5);
+        setContentView(R.layout.visionne);
 
-        ImageView mask = findViewById(R.id.masquer5);
+        ImageView mask = findViewById(R.id.masquer4);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it5 = new Intent(getApplicationContext(), MainActivity6.class);
-                startActivity(it5);
+                Intent it4 = new Intent(getApplicationContext(), profil.class);
+                startActivity(it4);
             }
         });
 
 
     }
 }
-

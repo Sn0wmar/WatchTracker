@@ -7,20 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
-
+public class profil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.profil);
 
-        ImageView mask = findViewById(R.id.masquer);
+        ImageView mask = findViewById(R.id.masquer5);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), MainActivity2.class);
-                startActivity(it);
+                Intent it5 = new Intent(getApplicationContext(), vos_amis.class);
+                startActivity(it5);
             }
         });
+
+
     }
 }
+

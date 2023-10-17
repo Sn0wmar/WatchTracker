@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity6">
+    tools:context=".vos_amis">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
+        tools:context=".Liste_personnelle"
         tools:layout_editor_absoluteX="-29dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:background="#3C78D7"
-            android:text="Profil"
+            android:text="Vos amis"
             android:textAlignment="center"
 
             android:textColor="@color/white"

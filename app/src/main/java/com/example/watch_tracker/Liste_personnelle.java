@@ -1,29 +1,26 @@
 package com.example.watch_tracker;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
+public class Liste_personnelle extends AppCompatActivity {
 
-public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.liste_personnelle);
 
-        ImageView mask = findViewById(R.id.masquer2);
+        ImageView mask = findViewById(R.id.masquer);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it2 = new Intent(getApplicationContext(), MainActivity3.class);
-                startActivity(it2);
+                Intent it = new Intent(getApplicationContext(), Pas_visionne.class);
+                startActivity(it);
             }
-
-
         });
-
-
     }
 }

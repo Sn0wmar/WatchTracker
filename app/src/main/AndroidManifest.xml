@@ -13,22 +13,25 @@
         android:theme="@style/Theme.Watch_Tracker"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity6"
+            android:name=".MainActivity7"
             android:exported="false" />
         <activity
-            android:name=".MainActivity5"
+            android:name=".vos_amis"
             android:exported="false" />
         <activity
-            android:name=".MainActivity4"
+            android:name=".profil"
             android:exported="false" />
         <activity
-            android:name=".MainActivity3"
+            android:name=".visionne"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".en_cours"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Pas_visionne"
+            android:exported="false" />
+        <activity
+            android:name=".Liste_personnelle"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
