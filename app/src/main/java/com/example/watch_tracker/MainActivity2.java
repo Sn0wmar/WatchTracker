@@ -12,8 +12,8 @@ public class MainActivity2 extends AppCompatActivity {
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), MainActivity3.class);
-                startActivity(it);
+                Intent it2 = new Intent(getApplicationContext(), MainActivity3.class);
+                startActivity(it2);
             }
         });
     }
