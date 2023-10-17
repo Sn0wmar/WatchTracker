@@ -1,5 +1,10 @@
 package com.example.watch_tracker;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -8,7 +13,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        ImageView mask = findViewById(R.id.masquer);
+        ImageView mask = findViewById(R.id.masquer2);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
