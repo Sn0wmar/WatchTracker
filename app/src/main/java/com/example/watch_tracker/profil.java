@@ -19,6 +19,7 @@ public class profil extends AppCompatActivity {
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
+        ImageView mask6 = findViewById(R.id.ami);
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +60,14 @@ public class profil extends AppCompatActivity {
                 Intent it = new Intent(getApplicationContext(), Liste_personnelle.class);
                 startActivity(it);
 
+            }
+        });
+
+        mask6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), vos_amis.class);
+                startActivity(it);
             }
         });
     }
