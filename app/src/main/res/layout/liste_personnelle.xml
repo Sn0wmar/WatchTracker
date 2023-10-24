@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="-25dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/pas_vu"
+            android:id="@+id/bouton_plus"
             android:layout_width="67dp"
             android:layout_height="61dp"
             android:clickable="true"

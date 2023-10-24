@@ -13,7 +13,7 @@ public class profil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profil);
 
-        ImageView mask = findViewById(R.id.pas_vu);
+        ImageView mask = findViewById(R.id.bouton_plus);
         // news
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);

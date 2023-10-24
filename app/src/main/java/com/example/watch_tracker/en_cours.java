@@ -13,7 +13,7 @@ public class en_cours extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.en_cours);
 
-        ImageView mask = findViewById(R.id.pas_vu);
+        ImageView mask = findViewById(R.id.bouton_plus);
 
         // news
         ImageView mask2 = findViewById(R.id.en_cours);

@@ -14,7 +14,7 @@ public class vos_amis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vos_amis);
 
-        ImageView mask = findViewById(R.id.pas_vu);
+        ImageView mask = findViewById(R.id.bouton_plus);
         // news
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);

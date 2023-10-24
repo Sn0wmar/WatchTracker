@@ -22,6 +22,8 @@ public class Liste_personnelle extends AppCompatActivity {
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
+        ImageView mask7 = findViewById(R.id.bouton_plus);
+
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +62,15 @@ public class Liste_personnelle extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getApplicationContext(), Liste_personnelle.class);
+                startActivity(it);
+
+            }
+        });
+
+        mask7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), Bouton.class);
                 startActivity(it);
 
             }

@@ -16,10 +16,11 @@ public class Pas_visionne extends AppCompatActivity {
         ImageView mask = findViewById(R.id.en_cours);
 
         // news
-        ImageView mask2 = findViewById(R.id.pas_vu);
+        ImageView mask2 = findViewById(R.id.bouton_plus);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
+
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,5 +63,7 @@ public class Pas_visionne extends AppCompatActivity {
 
             }
         });
+
+
     }
 }
