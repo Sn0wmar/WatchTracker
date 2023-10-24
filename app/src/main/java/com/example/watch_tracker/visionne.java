@@ -14,15 +14,53 @@ public class visionne extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visionne);
 
-        ImageView mask = findViewById(R.id.masquer4);
+        ImageView mask = findViewById(R.id.profil);
+        // news
+        ImageView mask2 = findViewById(R.id.en_cours);
+        ImageView mask3 = findViewById(R.id.vu);
+        ImageView mask4 = findViewById(R.id.pas_vu);
+        ImageView mask5 = findViewById(R.id.liste);
+
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it4 = new Intent(getApplicationContext(), profil.class);
-                startActivity(it4);
+                Intent it = new Intent(getApplicationContext(), profil.class);
+                startActivity(it);
             }
         });
 
+        mask2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), en_cours.class);
+                startActivity(it);
+            }
+        });
 
+        mask3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), visionne.class);
+                startActivity(it);
+
+            }
+        });
+
+        mask4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), Pas_visionne.class);
+                startActivity(it);
+            }
+        });
+
+        mask5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), Liste_personnelle.class);
+                startActivity(it);
+
+            }
+        });
     }
 }

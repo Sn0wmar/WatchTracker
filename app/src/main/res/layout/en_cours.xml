@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="0dp">
 
         <ImageView
-            android:id="@+id/masquer7"
+            android:id="@+id/pas_vu"
             android:layout_width="66dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,7 @@
             android:clickable="true"
             android:src="@drawable/baseline_add_24"
             app:backgroundTint="#3C78D7"
-            app:layout_constraintBottom_toBottomOf="@+id/masquer3"
+            app:layout_constraintBottom_toBottomOf="@+id/vu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.911"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
             app:layout_constraintVertical_bias="0.154" />
 
         <ImageView
-            android:id="@+id/masquer4"
+            android:id="@+id/profil"
             android:layout_width="64dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
             app:srcCompat="@drawable/utilisateur" />
 
         <ImageView
-            android:id="@+id/masquer3"
+            android:id="@+id/vu"
             android:layout_width="65dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
             app:srcCompat="@drawable/oeil__1_" />
 
         <ImageView
-            android:id="@+id/masquer2"
+            android:id="@+id/en_cours"
             android:layout_width="63dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +101,7 @@
             app:srcCompat="@drawable/pause" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/liste"
             android:layout_width="60dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"

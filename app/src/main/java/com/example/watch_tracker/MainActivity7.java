@@ -13,7 +13,7 @@ public class MainActivity7 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main7);
 
-        ImageView mask = findViewById(R.id.masquer7);
+        ImageView mask = findViewById(R.id.pas_vu);
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
