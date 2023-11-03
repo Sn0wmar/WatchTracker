@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "565229319516",
+    "project_id": "watchtracker-ba3b3",
+    "storage_bucket": "watchtracker-ba3b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565229319516:android:8a62f289e7c7f271aa3d99",
+        "android_client_info": {
+          "package_name": "com.example.watch_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBendBajWVETBeIbaOYSiFxxr-mrkyJlUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
