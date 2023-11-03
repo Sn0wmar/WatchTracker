@@ -16,10 +16,11 @@ public class Pas_visionne extends AppCompatActivity {
         ImageView mask = findViewById(R.id.en_cours);
 
         // news
-        ImageView mask2 = findViewById(R.id.bouton_plus);
+        ImageView mask2 = findViewById(R.id.pas_vu);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
+        ImageView mask6 = findViewById(R.id.bouton_plus);
 
 
         mask.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +63,19 @@ public class Pas_visionne extends AppCompatActivity {
                 startActivity(it);
 
             }
+
+
+        });
+
+        mask6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), Bouton.class);
+                startActivity(it);
+
+            }
+
+
         });
 
 

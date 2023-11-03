@@ -13,13 +13,14 @@ public class en_cours extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.en_cours);
 
-        ImageView mask = findViewById(R.id.bouton_plus);
+        ImageView mask = findViewById(R.id.pas_vu);
 
         // news
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
+        ImageView mask6 = findViewById(R.id.bouton_plus);
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,15 @@ public class en_cours extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getApplicationContext(), Liste_personnelle.class);
+                startActivity(it);
+
+            }
+        });
+
+        mask6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), Bouton.class);
                 startActivity(it);
 
             }

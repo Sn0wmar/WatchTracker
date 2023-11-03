@@ -18,8 +18,9 @@ public class visionne extends AppCompatActivity {
         // news
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
-        ImageView mask4 = findViewById(R.id.bouton_plus);
+        ImageView mask4 = findViewById(R.id.pas_vu);
         ImageView mask5 = findViewById(R.id.liste);
+        ImageView mask6 = findViewById(R.id.bouton_plus);
 
 
 
@@ -65,6 +66,13 @@ public class visionne extends AppCompatActivity {
             }
         });
 
+        mask6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), Bouton.class);
+                startActivity(it);
 
+            }
+        });
     }
 }
