@@ -13,6 +13,18 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-25dp">
 
+        <SearchView
+            android:layout_width="369dp"
+            android:layout_height="71dp"
+            android:background="#273C76DA"
+            android:baselineAligned="false"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.118" />
+
         <TextView
             android:id="@+id/textView13"
             android:layout_width="match_parent"
@@ -53,10 +65,10 @@
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.087"
+            app:layout_constraintHorizontal_bias="0.078"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.458" />
+            app:layout_constraintVertical_bias="0.451" />
 
         <TextView
             android:id="@+id/textView7"
@@ -67,10 +79,10 @@
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.087"
+            app:layout_constraintHorizontal_bias="0.102"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.38" />
+            app:layout_constraintVertical_bias="0.357" />
 
         <TextView
             android:id="@+id/textView6"
@@ -81,10 +93,10 @@
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.078"
+            app:layout_constraintHorizontal_bias="0.087"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.293" />
+            app:layout_constraintVertical_bias="0.26" />
 
         <ImageView
             android:id="@+id/profil"
@@ -144,17 +156,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
             app:srcCompat="@drawable/liste_de_controle" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="305dp"
-            android:layout_height="58dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.16"
-            app:srcCompat="@drawable/barre_de_recherche" />
 
         <ImageView
             android:id="@+id/imageView"
