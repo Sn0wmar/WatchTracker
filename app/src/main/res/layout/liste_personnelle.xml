@@ -141,16 +141,20 @@
             app:srcCompat="@drawable/barre_grise" />
 
         <SearchView
-            android:layout_width="369dp"
-            android:layout_height="71dp"
+            android:layout_width="388dp"
+            android:layout_height="72dp"
             android:background="#273C76DA"
             android:baselineAligned="false"
-            android:clickable="false"
+            android:clickable="true"
+            android:longClickable="false"
+            android:nestedScrollingEnabled="true"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.118" />
+            app:layout_constraintVertical_bias="0.118"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
