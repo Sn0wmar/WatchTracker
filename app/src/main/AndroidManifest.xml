@@ -34,6 +34,10 @@
             android:name=".Liste_personnelle"
             android:exported="false" />
         <activity
+            android:name=".InscriptionActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>
