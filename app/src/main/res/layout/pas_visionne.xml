@@ -15,17 +15,16 @@
         tools:layout_editor_absoluteX="-29dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <SearchView
-            android:layout_width="369dp"
-            android:layout_height="71dp"
-            android:background="#273C76DA"
-            android:baselineAligned="false"
-            android:clickable="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <EditText
+            android:id="@+id/emailField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:hint="Recherche"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.118" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/pas_vu"
