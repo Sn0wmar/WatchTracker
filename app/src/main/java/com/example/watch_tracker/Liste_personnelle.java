@@ -14,6 +14,7 @@ public class Liste_personnelle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liste_personnelle);
 
+
         ImageView mask = findViewById(R.id.pas_vu_2);
 
         // news

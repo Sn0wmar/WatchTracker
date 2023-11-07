@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".InscriptionActivity">
+
+    <EditText
+        android:id="@+id/nomFieldInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom" />
+
+    <EditText
+        android:id="@+id/prenomFieldInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Prénom"
+        android:layout_below="@id/nomFieldInscription"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/emailFieldInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/prenomFieldInscription"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/passwordFieldInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mot de passe"
+        android:inputType="textPassword"
+        android:layout_below="@id/emailFieldInscription"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/inscriptionButtonInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="S'inscrire"
+        android:layout_below="@id/passwordFieldInscription"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>
