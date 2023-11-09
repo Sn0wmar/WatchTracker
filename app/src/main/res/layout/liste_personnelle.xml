@@ -141,7 +141,7 @@
             app:srcCompat="@drawable/barre_grise" />
 
         <EditText
-            android:id="@+id/emailField"
+            android:id="@+id/searchField"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="88dp"
@@ -149,7 +149,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeActionLabel="Rechercher"
+            android:imeActionId="@+id/action_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
