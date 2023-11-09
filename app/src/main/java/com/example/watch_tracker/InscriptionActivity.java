@@ -1,5 +1,6 @@
 package com.example.watch_tracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class InscriptionActivity extends AppCompatActivity {
 
     private EditText nomField, prenomField, emailField, passwordField;
-    private Button inscriptionButton;
+    private Button inscriptionButton, retourButton; // Ajout du bouton de retour
     private FirebaseAuth mAuth;
 
     @Override
@@ -32,6 +33,7 @@ public class InscriptionActivity extends AppCompatActivity {
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
         inscriptionButton = findViewById(R.id.inscriptionButton);
+        retourButton = findViewById(R.id.retourButton); // Initialisation du bouton de retour
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -39,6 +41,16 @@ public class InscriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 registerUser();
+            }
+        });
+
+        // Ajout de l'OnClickListener pour le bouton de retour
+        retourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Redirection vers AuthActivity
+                Intent intent = new Intent(InscriptionActivity.this, AuthActivity.class);
+                startActivity(intent);
             }
         });
     }
