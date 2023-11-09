@@ -46,7 +46,9 @@ public class AuthActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerUser();
+                // Modifier l'intent pour lancer InscriptionActivity au lieu de registerUser()
+                Intent intent = new Intent(AuthActivity.this, InscriptionActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -66,34 +68,6 @@ public class AuthActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(AuthActivity.this, "Échec de l'authentification", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
-    }
-
-    private void registerUser() {
-        String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(AuthActivity.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Ajoute ces lignes pour afficher le message d'erreur spécifique dans les logs.
-                            Log.e("Inscription", "Échec de l'inscription", task.getException());
-                            Toast.makeText(AuthActivity.this, "Échec de l'inscription : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Ajoute ces lignes pour afficher le message d'erreur spécifique dans les logs.
-                        Log.e("Inscription", "Échec de l'inscription", e);
-                        Toast.makeText(AuthActivity.this, "Échec de l'inscription : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
