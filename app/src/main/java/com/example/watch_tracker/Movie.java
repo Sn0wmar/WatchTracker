@@ -12,7 +12,8 @@ public class Movie {
     @SerializedName("overview")
     private String overview;
 
-
+    @SerializedName("poster_path")
+    private String posterPath;
 
     public int getId() {
         return id;
@@ -24,5 +25,9 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
     }
 }
