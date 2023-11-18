@@ -7,11 +7,8 @@
     tools:context=".Bouton">
 
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Liste_personnelle"
-        tools:layout_editor_absoluteX="-109dp"
-        tools:layout_editor_absoluteY="-16dp">
+
+
 
         <EditText
             android:id="@+id/searchField"
@@ -128,7 +125,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies"
             android:layout_width="409dp"
-            android:layout_height="391dp"
+            android:layout_height="460dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
