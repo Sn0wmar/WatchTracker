@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.watch_tracker.Movie;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+import android.util.Log;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
 
@@ -46,12 +47,28 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
         Movie movie = movies.get(position);
 
-        // Chargez l'image du film avec Picasso (ou une autre bibliothèque d'image)
-        Picasso.get().load(movie.getPosterPath()).into(holder.moviePoster);
+        // Chargez l'image du film avec Picasso
+
+        Picasso.get().invalidate(movie.getPosterPath());
+        Log.d("RVAdapter", "Chemin de l'affiche : " + movie.getPosterPath());
+
+        Picasso.get().load(movie.getPosterPath()).placeholder(R.drawable.placeholder_image).into(holder.moviePoster, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                Log.d("RVAdapter", "Image chargée avec succès : " + movie.getPosterPath());
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e("RVAdapter", "Erreur lors du chargement de l'image : " + movie.getPosterPath());
+                e.printStackTrace();
+            }
+        });
+
 
         holder.movieTitle.setText(movie.getTitle());
 
-        // Gestionnaire de clics sur un élément de la RecyclerView
+        // clics sur un élément
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,9 +85,5 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
         return movies.size();
     }
 
-    // Méthode pour vider la liste de films
-    public void clear() {
-        movies.clear();
-        notifyDataSetChanged();
-    }
+
 }

@@ -43,7 +43,7 @@ public class Movie implements Parcelable {
         return posterPath;
     }
 
-    // Implémentation de Parcelable
+
     protected Movie(Parcel in) {
         id = in.readInt();
         title = in.readString();
