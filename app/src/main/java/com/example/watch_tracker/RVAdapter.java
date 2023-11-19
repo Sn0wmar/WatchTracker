@@ -4,77 +4,73 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
-import android.text.TextUtils;
-import com.squareup.picasso.Picasso;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.watch_tracker.Movie;
+import com.squareup.picasso.Picasso;
+import java.util.List;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
+public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
+
     private List<Movie> movies;
-    private LayoutInflater inflater;
+    private OnItemClickListener onItemClickListener;
 
+    public interface OnItemClickListener {
+        void onItemClick(Movie movie);
+    }
 
-    // Constructeur
-    public RVAdapter(Context context, List<Movie> movies) {
-        this.inflater = LayoutInflater.from(context);
+    public RVAdapter(Context context, List<Movie> movies, OnItemClickListener onItemClickListener) {
         this.movies = movies;
-
+        this.onItemClickListener = onItemClickListener;
     }
 
-    // Créer une nouvelle vue (appelée par le layout manager)
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the individual item layout here
-        View view = inflater.inflate(R.layout.movie_item, parent, false);
-        return new ViewHolder(view);
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+        ImageView moviePoster;
+        TextView movieTitle;
+
+        public MovieViewHolder(View itemView) {
+            super(itemView);
+            moviePoster = itemView.findViewById(R.id.movie_poster);
+            movieTitle = itemView.findViewById(R.id.movie_title);
+        }
     }
 
-    // Remplace le contenu de la vue (appelé par le layout manager)
     @Override
+    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
+        return new MovieViewHolder(v);
+    }
 
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    @Override
+    public void onBindViewHolder(MovieViewHolder holder, final int position) {
         Movie movie = movies.get(position);
 
-        // Vérifiez si l'affiche du film est disponible
-        if (!TextUtils.isEmpty(movie.getPosterPath())) {
-            // Utilisez Picasso pour charger l'image depuis l'URL
-            Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath())
-                    .placeholder(R.drawable.placeholder_image)
-                    .into(holder.posterImageView);
-        } else {
-            // Si l'affiche n'est pas disponible, utilisez l'image par défaut
-            holder.posterImageView.setImageResource(R.drawable.placeholder_image);
-        }
+        // Chargez l'image du film avec Picasso (ou une autre bibliothèque d'image)
+        Picasso.get().load(movie.getPosterPath()).into(holder.moviePoster);
 
-        // Mettez à jour le titre du film
-        holder.titleTextView.setText(movie.getTitle());
+        holder.movieTitle.setText(movie.getTitle());
+
+        // Gestionnaire de clics sur un élément de la RecyclerView
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Appel de la méthode onItemClick de l'interface
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(movies.get(position));
+                }
+            }
+        });
     }
 
-
-    // Retourne la taille de votre ensemble de données (appelé par le layout manager)
     @Override
     public int getItemCount() {
         return movies.size();
     }
 
-    // Fournit une référence aux éléments de vue à l'intérieur d'une vue de données
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        ImageView posterImageView;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            titleTextView = itemView.findViewById(R.id.text_view_movie_title);
-            posterImageView = itemView.findViewById(R.id.image_view_movie_poster);
-
-        }
+    // Méthode pour vider la liste de films
+    public void clear() {
+        movies.clear();
+        notifyDataSetChanged();
     }
-
 }

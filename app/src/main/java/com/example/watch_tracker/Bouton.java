@@ -10,12 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.watch_tracker.Movie;
 import com.example.watch_tracker.MovieResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Bouton extends AppCompatActivity {
+public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
@@ -114,7 +115,7 @@ public class Bouton extends AppCompatActivity {
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Mettez à jour la RecyclerView avec les films populaires
-                    rvAdapter = new RVAdapter(Bouton.this, response.body().getResults());
+                    rvAdapter = new RVAdapter(Bouton.this, response.body().getResults(), Bouton.this);
                     recyclerView.setAdapter(rvAdapter);
                 } else {
                     Log.e("Bouton", "Erreur de réponse : " + response.message());
@@ -127,5 +128,13 @@ public class Bouton extends AppCompatActivity {
             }
         });
     }
-}
 
+    // Implémentation de la méthode onItemClick de l'interface RVAdapter.OnItemClickListener
+    @Override
+    public void onItemClick(Movie movie) {
+        // Ouvrir la nouvelle activité avec plus d'informations sur le film
+        Intent intent = new Intent(Bouton.this, FilmDetailsActivity.class);
+        intent.putExtra("movie", movie); // Passez les informations du film à la nouvelle activité
+        startActivity(intent);
+    }
+}
