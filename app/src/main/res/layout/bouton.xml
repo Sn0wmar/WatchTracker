@@ -6,6 +6,7 @@
     android:id="@+id/your_root_layout_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:circularflow_defaultRadius="20dp"
     tools:context=".Bouton">
 
 

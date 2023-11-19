@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Watch_Tracker"
 include(":app")
+include(":app")
  
