@@ -11,6 +11,13 @@ import com.example.watch_tracker.Movie;
 import android.widget.ImageView;
 import android.util.Log;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FilmDetailsActivity extends AppCompatActivity {
 
@@ -34,7 +41,43 @@ public class FilmDetailsActivity extends AppCompatActivity {
         mask2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FilmDetailsActivity.this, "en cours de Developpement", Toast.LENGTH_SHORT).show();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    // Utilisateur authentifié
+                    String userId = currentUser.getUid();
+
+                    // Créez une référence à la base de données pour l'utilisateur actuel
+                    DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
+
+                    // Récupérez les informations du film
+                    Movie movie = getIntent().getParcelableExtra("movie");
+
+                    // Vérifiez si le film n'est pas déjà enregistré par l'utilisateur
+                    userMoviesRef.child(String.valueOf(movie.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("Firebase", "onDataChange: dataSnapshot.exists() = " + dataSnapshot.exists());
+
+                            if (!dataSnapshot.exists()) {
+                                // Le film n'est pas encore enregistré, ajoutez-le à la base de données
+                                userMoviesRef.child(String.valueOf(movie.getId())).setValue(movie);
+                                Toast.makeText(FilmDetailsActivity.this, "Film enregistré avec succès", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Le film est déjà enregistré
+                                Toast.makeText(FilmDetailsActivity.this, "Ce film est déjà enregistré", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Gestion des erreurs de base de données
+                            Log.e("Firebase", "Erreur lors de l'accès à la base de données : " + databaseError.getMessage());
+                        }
+                    });
+                } else {
+                    Toast.makeText(FilmDetailsActivity.this, "Vous etes pas authentifie", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
