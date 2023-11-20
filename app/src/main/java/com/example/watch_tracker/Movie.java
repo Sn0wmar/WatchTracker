@@ -42,7 +42,7 @@ public class Movie implements Parcelable {
     }
 
     public String getPosterPath() {
-        return posterPath;
+        return BASE_IMAGE_URL+posterPath;
     }
 
 
@@ -77,7 +77,5 @@ public class Movie implements Parcelable {
         dest.writeString(overview);
         dest.writeString(posterPath);
     }
-    public String getFullPosterPath() {
-        return BASE_IMAGE_URL + posterPath;
-    }
+
 }

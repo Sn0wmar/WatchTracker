@@ -51,7 +51,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
         // Chargez l'image du film avec Picasso
 
         Picasso.get()
-                .load(movie.getFullPosterPath())
+                .load(movie.getPosterPath())
                 .error(R.drawable.placeholder_image)
                 .into(holder.moviePoster, new Callback() {
                     @Override
