@@ -29,6 +29,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         ImageView mask = findViewById(R.id.retourButton);
         ImageView mask2 = findViewById(R.id.addButton);
         ImageView mask3 = findViewById(R.id.shareButton);
+        ImageView mask4 = findViewById(R.id.deleteButton);
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +85,44 @@ public class FilmDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(FilmDetailsActivity.this, "en cours de Developpement", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mask4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Récupérez l'utilisateur actuel
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (currentUser != null) {
+                    // Utilisateur authentifié
+                    String userId = currentUser.getUid();
+
+                    // Récupérez les informations du film
+                    Movie movie = getIntent().getParcelableExtra("movie");
+
+                    if (movie != null) {
+                        // Créez une référence à la base de données pour l'utilisateur actuel et le film spécifique
+                        DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies").child(String.valueOf(movie.getId()));
+
+                        // Supprimez le film de la base de données
+                        userMoviesRef.removeValue(new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                if (databaseError == null) {
+                                    // La suppression a réussi
+                                    Toast.makeText(FilmDetailsActivity.this, "Film supprimé avec succès", Toast.LENGTH_SHORT).show();
+                                    finish(); // Fermez l'activité après la suppression
+                                } else {
+                                    // Gestion des erreurs de base de données
+                                    Log.e("Firebase", "Erreur lors de la suppression du film : " + databaseError.getMessage());
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(FilmDetailsActivity.this, "Vous n'êtes pas authentifié", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
