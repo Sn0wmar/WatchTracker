@@ -16,8 +16,6 @@ public class Liste_personnelle extends AppCompatActivity {
 
 
         ImageView mask = findViewById(R.id.pas_vu_2);
-
-        // news
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
