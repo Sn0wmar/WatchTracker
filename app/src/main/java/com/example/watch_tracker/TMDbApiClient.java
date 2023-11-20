@@ -8,6 +8,8 @@ public class TMDbApiClient {
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String API_KEY = "a5183ca5a42adb93356f8a7897bd6622";
 
+    private static final String langage = "fr-FR";
+
     private static TMDbApiInterface tmDbApiInterface;
 
     public static TMDbApiInterface getApiClient() {
@@ -23,7 +25,6 @@ public class TMDbApiClient {
     }
 
     public static Call<MovieResponse> getPopularMovies(int page) {
-        return getApiClient().getPopularMovies(API_KEY, page);
+        return getApiClient().getPopularMovies(API_KEY, page,langage);
     }
 }
-

@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Liste_personnelle">
+    tools:context=".FilmDetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="409dp"
         android:layout_height="match_parent"
-        tools:context=".Liste_personnelle"
-        tools:layout_editor_absoluteX="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:context=".FilmDetailsActivity"
         tools:layout_editor_absoluteY="0dp">
 
         <ImageView
-            android:id="@+id/profil"
+            android:id="@+id/shareButton"
             android:layout_width="64dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -23,22 +24,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/utilisateur" />
+            app:srcCompat="@drawable/share" />
+
 
         <ImageView
-            android:id="@+id/vu"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.702"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/oeil__1_" />
-
-        <ImageView
-            android:id="@+id/en_cours"
+            android:id="@+id/addButton"
             android:layout_width="63dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,22 +36,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/pause" />
+            app:srcCompat="@drawable/add" />
+
 
         <ImageView
-            android:id="@+id/pas_vu_2"
-            android:layout_width="66dp"
-            android:layout_height="45dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.289"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/oeil" />
-
-        <ImageView
-            android:id="@+id/liste"
+            android:id="@+id/retourButton"
             android:layout_width="60dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/liste_de_controle" />
+            app:srcCompat="@drawable/retour" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -116,12 +95,13 @@
 
         <TextView
             android:id="@+id/movie_description"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_width="407dp"
+            android:layout_height="327dp"
             android:layout_marginTop="32dp"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

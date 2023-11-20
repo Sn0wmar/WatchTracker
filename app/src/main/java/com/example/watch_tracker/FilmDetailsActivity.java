@@ -40,6 +40,9 @@ public class FilmDetailsActivity extends AppCompatActivity {
                             Log.e("Picasso", "Error loading image: " + e.getMessage());
                         }
                     });
+            // Description du film
+            TextView descriptionTextView = findViewById(R.id.movie_description);
+            descriptionTextView.setText(movie.getOverview());
         }
     }
 }
