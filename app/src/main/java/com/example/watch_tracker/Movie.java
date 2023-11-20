@@ -2,7 +2,6 @@ package com.example.watch_tracker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Movie implements Parcelable {
@@ -20,7 +19,12 @@ public class Movie implements Parcelable {
 
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
-    // Constructeur
+    // Constructeur sans argument nécessaire pour Firebase
+    public Movie() {
+        // Constructeur vide requis par Firebase Realtime Database.
+    }
+
+    // Constructeur avec arguments
     public Movie(int id, String title, String overview, String posterPath) {
         this.id = id;
         this.title = title;
@@ -42,7 +46,7 @@ public class Movie implements Parcelable {
     }
 
     public String getPosterPath() {
-        return BASE_IMAGE_URL+posterPath;
+        return BASE_IMAGE_URL + posterPath;
     }
 
 

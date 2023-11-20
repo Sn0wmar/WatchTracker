@@ -123,6 +123,8 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
 
     @Override
     public void onItemClick(Movie movie) {
-        // Gérez le clic sur un élément de la liste ici
+        Intent intent = new Intent(Liste_personnelle.this, FilmDetailsActivity.class);
+        intent.putExtra("movie", movie); // Passez les informations du film à la nouvelle activité
+        startActivity(intent);
     }
 }

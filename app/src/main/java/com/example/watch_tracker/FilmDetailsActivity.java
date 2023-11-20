@@ -33,8 +33,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), Bouton.class);
-                startActivity(it);
+                finish();
             }
         });
 
