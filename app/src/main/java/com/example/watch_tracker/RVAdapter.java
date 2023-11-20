@@ -11,6 +11,7 @@ import com.example.watch_tracker.Movie;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 import android.util.Log;
+import com.squareup.picasso.Callback;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
 
@@ -46,27 +47,27 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
         Movie movie = movies.get(position);
-
+        holder.movieTitle.setText(movie.getTitle());
         // Chargez l'image du film avec Picasso
 
-        Picasso.get().invalidate(movie.getPosterPath());
-        Log.d("RVAdapter", "Chemin de l'affiche : " + movie.getPosterPath());
+        Picasso.get()
+                .load(movie.getFullPosterPath())
+                .error(R.drawable.placeholder_image)
+                .into(holder.moviePoster, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // Image chargée avec succès
+                    }
 
-        Picasso.get().load(movie.getPosterPath()).placeholder(R.drawable.placeholder_image).into(holder.moviePoster, new com.squareup.picasso.Callback() {
-            @Override
-            public void onSuccess() {
-                Log.d("RVAdapter", "Image chargée avec succès : " + movie.getPosterPath());
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.e("RVAdapter", "Erreur lors du chargement de l'image : " + movie.getPosterPath());
-                e.printStackTrace();
-            }
-        });
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e("Picasso", "Error loading image: " + e.getMessage());
+                        Log.e("Picasso", "Failed URL: " + movie.getPosterPath());
+                    }
+                });
 
 
-        holder.movieTitle.setText(movie.getTitle());
+
 
         // clics sur un élément
         holder.itemView.setOnClickListener(new View.OnClickListener() {

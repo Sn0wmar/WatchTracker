@@ -18,6 +18,8 @@ public class Movie implements Parcelable {
     @SerializedName("poster_path")
     private String posterPath;
 
+    private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
     // Constructeur
     public Movie(int id, String title, String overview, String posterPath) {
         this.id = id;
@@ -74,5 +76,8 @@ public class Movie implements Parcelable {
         dest.writeString(title);
         dest.writeString(overview);
         dest.writeString(posterPath);
+    }
+    public String getFullPosterPath() {
+        return BASE_IMAGE_URL + posterPath;
     }
 }
