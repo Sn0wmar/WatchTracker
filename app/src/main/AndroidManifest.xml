@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Watch_Tracker"
         tools:targetApi="31">
-        <activity
-            android:name=".Indentification"
-            android:exported="false" />
+
         <activity
             android:name=".Bouton"
             android:exported="false" />

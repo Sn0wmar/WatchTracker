@@ -43,16 +43,15 @@ public class FilmDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
-                    // Utilisateur authentifié
+
                     String userId = currentUser.getUid();
 
-                    // Créez une référence à la base de données pour l'utilisateur actuel
+
                     DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
 
-                    // Récupérez les informations du film
                     Movie movie = getIntent().getParcelableExtra("movie");
 
-                    // Vérifiez si le film n'est pas déjà enregistré par l'utilisateur
+
                     userMoviesRef.child(String.valueOf(movie.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,7 +69,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            // Gestion des erreurs de base de données
                             Log.e("Firebase", "Erreur lors de l'accès à la base de données : " + databaseError.getMessage());
                         }
                     });
