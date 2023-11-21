@@ -20,7 +20,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
 
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
-    private ConstraintLayout constraintLayout; // Ajout de la vue racine
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +76,12 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         // Initialisation de la RecyclerView
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        constraintLayout = findViewById(R.id.Bouton);
 
-        // Ajout de la vue racine
-        constraintLayout = findViewById(R.id.your_root_layout_id);
 
-        // Appel de la méthode pour obtenir les films populaires
         getPopularMovies();
 
-        // Ajout de l'écouteur de changement de hauteur de fenêtre
+
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
@@ -108,13 +106,12 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
     }
 
     private void getPopularMovies() {
-        Call<MovieResponse> call = TMDbApiClient.getPopularMovies(1); // Vous pouvez ajuster la page si nécessaire
-
+        Call<MovieResponse> call = TMDbApiClient.getPopularMovies(1);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Mettez à jour la RecyclerView avec les films populaires
+
                     rvAdapter = new RVAdapter(Bouton.this, response.body().getResults(), Bouton.this);
                     recyclerView.setAdapter(rvAdapter);
                 } else {
@@ -129,12 +126,12 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
-    // Implémentation de la méthode onItemClick de l'interface RVAdapter.OnItemClickListener
+
     @Override
     public void onItemClick(Movie movie) {
-        // Ouvrir la nouvelle activité avec plus d'informations sur le film
+
         Intent intent = new Intent(Bouton.this, FilmDetailsActivity.class);
-        intent.putExtra("movie", movie); // Passez les informations du film à la nouvelle activité
+        intent.putExtra("movie", movie);
         startActivity(intent);
     }
 }

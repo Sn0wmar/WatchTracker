@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
     private List<Movie> movieList;
-
+    private ConstraintLayout constraintLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,11 +88,40 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         movieList = new ArrayList<>();
         rvAdapter = new RVAdapter(this, movieList, this);
         recyclerView.setAdapter(rvAdapter);
 
+
+
+        recyclerView = findViewById(R.id.rv_movies);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        constraintLayout = findViewById(R.id.listeperso);
+
         loadMovies();
+
+        constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            private int previousHeight;
+
+            @Override
+            public boolean onPreDraw() {
+                int height = constraintLayout.getHeight();
+                if (height != previousHeight) {
+                    // La hauteur de la fenêtre a changé
+                    boolean isKeyboardVisible = height < previousHeight;
+                    if (isKeyboardVisible) {
+                        // Le clavier est affiché, masquez la RecyclerView
+                        recyclerView.setVisibility(View.GONE);
+                    } else {
+                        // Le clavier n'est pas affiché, montrez la RecyclerView
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                    previousHeight = height;
+                }
+                return true;
+            }
+        });
     }
 
     private void loadMovies() {
