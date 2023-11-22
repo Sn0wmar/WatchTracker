@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface TMDbApiInterface {
-    @GET("trending/all/week")
+    @GET("trending/all/day")
     Call<MovieResponse> getTrendingContent(
             @Query("api_key") String apiKey,
             @Query("page") int page,
