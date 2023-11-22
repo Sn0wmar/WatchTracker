@@ -95,7 +95,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
         mask3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {                     //
+            public void onClick(View view) {
                 Movie movie = getIntent().getParcelableExtra("movie");
 
                 if (movie != null) {
@@ -115,7 +115,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     Toast.makeText(FilmDetailsActivity.this, "Aucun film disponible pour le partage", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });              //REPULL test
 
 
 
