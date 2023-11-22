@@ -5,10 +5,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class Movie implements Parcelable {
-    @SerializedName("id")
     private int id;
 
-    @SerializedName("title")
+    // Utilisez "title" pour les films et "name" pour les séries
+    @SerializedName(value = "title", alternate = {"name"})
     private String title;
 
     @SerializedName("overview")
@@ -18,6 +18,8 @@ public class Movie implements Parcelable {
     private String posterPath;
 
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
+
 
     // Constructeur sans argument nécessaire pour Firebase
     public Movie() {
