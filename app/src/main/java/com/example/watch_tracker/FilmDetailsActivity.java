@@ -3,14 +3,18 @@ package com.example.watch_tracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;                      //
 import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.example.watch_tracker.Movie;
 import android.widget.ImageView;
 import android.util.Log;
-import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
@@ -19,12 +23,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
 public class FilmDetailsActivity extends AppCompatActivity {
+
+    private TextView titleTextView;
+    private TextView movieDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_details);
+
+        titleTextView = findViewById(R.id.titleTextView);
+        movieDescription = findViewById(R.id.movie_description);
+
+
 
         ImageView mask = findViewById(R.id.retourButton);
         ImageView mask2 = findViewById(R.id.addButton);
@@ -81,10 +95,30 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
         mask3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(FilmDetailsActivity.this, "en cours de Developpement", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {                     //
+                Movie movie = getIntent().getParcelableExtra("movie");
+
+                if (movie != null) {
+                    String title = movie.getTitle();
+                    String description = movie.getOverview();
+
+                    String shareText = title + "\n" + description;
+
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+                    sendIntent.setType("text/plain");
+
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    startActivity(shareIntent);
+                } else {
+                    Toast.makeText(FilmDetailsActivity.this, "Aucun film disponible pour le partage", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+
+
 
         mask4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +134,8 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     Movie movie = getIntent().getParcelableExtra("movie");
 
                     if (movie != null) {
+
+
 
                         DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies").child(String.valueOf(movie.getId()));
 
@@ -123,7 +159,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
 
@@ -156,4 +191,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
             descriptionTextView.setText(movie.getOverview());
         }
     }
+
+
 }
