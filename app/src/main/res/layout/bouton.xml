@@ -53,7 +53,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/utilisateur" />
+            app:srcCompat="@drawable/utilisateur"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onPasVuClick"/>
 
         <ImageView
             android:id="@+id/vu"
@@ -65,7 +68,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/oeil__1_" />
+            app:srcCompat="@drawable/oeil__1_"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onPasVuClick"/>
 
         <ImageView
             android:id="@+id/en_cours"
@@ -76,7 +82,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/pause" />
+            app:srcCompat="@drawable/pause"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onPasVuClick"/>
 
         <ImageView
             android:id="@+id/pas_vu"
@@ -88,7 +97,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/oeil" />
+            app:srcCompat="@drawable/oeil"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onPasVuClick"/>
 
         <ImageView
             android:id="@+id/liste"
@@ -100,7 +112,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
-            app:srcCompat="@drawable/liste_de_controle" />
+            app:srcCompat="@drawable/liste_de_controle"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onPasVuClick"/>
 
 
         <ImageView
