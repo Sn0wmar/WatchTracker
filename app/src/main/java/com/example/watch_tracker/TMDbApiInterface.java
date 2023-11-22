@@ -7,14 +7,14 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface TMDbApiInterface {
-    @GET("movie/popular")
-    Call<MovieResponse> getPopularMovies(
-            @Query("api_key") String cleApi,
+    @GET("trending/all/week")
+    Call<MovieResponse> getTrendingContent(
+            @Query("api_key") String apiKey,
             @Query("page") int page,
             @Query("language") String language
     );
 
-    @GET("movie/{id}")
+    @GET("media/{id}")
     Call<MovieResponse> getMovieDetails(
             @Path("id") int idFilm,
             @Query("api_key") String cleApi,

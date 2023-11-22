@@ -79,7 +79,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         constraintLayout = findViewById(R.id.Bouton);
 
 
-        getPopularMovies();
+        getTrendingContent();
 
 
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -105,13 +105,12 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
-    private void getPopularMovies() {
-        Call<MovieResponse> call = TMDbApiClient.getPopularMovies(1);
+    private void getTrendingContent() {
+        Call<MovieResponse> call = TMDbApiClient.getTrendingContent(1);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
                     rvAdapter = new RVAdapter(Bouton.this, response.body().getResults(), Bouton.this);
                     recyclerView.setAdapter(rvAdapter);
                 } else {
@@ -126,12 +125,11 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
-
     @Override
     public void onItemClick(Movie movie) {
-
         Intent intent = new Intent(Bouton.this, FilmDetailsActivity.class);
         intent.putExtra("movie", movie);
         startActivity(intent);
     }
 }
+

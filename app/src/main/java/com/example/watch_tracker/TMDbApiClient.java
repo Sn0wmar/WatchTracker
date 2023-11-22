@@ -24,7 +24,7 @@ public class TMDbApiClient {
         return tmDbApiInterface;
     }
 
-    public static Call<MovieResponse> getPopularMovies(int page) {
-        return getApiClient().getPopularMovies(API_KEY, page,langage);
+    public static Call<MovieResponse> getTrendingContent(int page) {
+        return getApiClient().getTrendingContent(API_KEY, page,langage);
     }
 }
