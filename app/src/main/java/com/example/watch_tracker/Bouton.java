@@ -73,7 +73,6 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // Appel à la méthode performSearch lorsque le texte change
                 performSearch(editable.toString());
             }
         });
