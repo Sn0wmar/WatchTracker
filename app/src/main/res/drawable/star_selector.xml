@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- res/drawable/star_selector.xml -->
 
-        <item android:drawable="@color/yellow" android:state_pressed="true" />
-        <item android:drawable="@color/appui" />
+        <item android:drawable="@color/appui" android:state_pressed="true" />
+        <item android:drawable="@color/yellow" />
 
 
 </selector>
