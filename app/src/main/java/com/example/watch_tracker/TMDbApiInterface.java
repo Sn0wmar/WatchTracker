@@ -20,4 +20,12 @@ public interface TMDbApiInterface {
             @Query("api_key") String cleApi,
             @Query("language") String language
     );
+
+    @GET("search/multi")
+    Call<MovieResponse> searchAllContent(
+            @Query("api_key") String apiKey,
+            @Query("query") String query,
+            @Query("language") String language,
+            @Query("page") int page
+    );
 }
