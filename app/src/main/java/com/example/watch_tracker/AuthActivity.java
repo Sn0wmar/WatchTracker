@@ -17,11 +17,12 @@
     import com.google.firebase.auth.AuthResult;
     import com.google.firebase.auth.FirebaseAuth;
     import com.google.firebase.auth.FirebaseUser;
+    import com.google.protobuf.Empty;
 
     public class AuthActivity extends AppCompatActivity {
 
         private EditText emailField, passwordField;
-        private Button loginButton, registerButton;
+        private Button loginButton, registerButton, resetpassword;
         private FirebaseAuth mAuth;
 
         @Override
@@ -33,6 +34,7 @@
             passwordField = findViewById(R.id.passwordField);
             loginButton = findViewById(R.id.loginButton);
             registerButton = findViewById(R.id.inscriptionButton);
+            resetpassword = findViewById(R.id.forgotmdp);
 
             mAuth = FirebaseAuth.getInstance();
 
@@ -46,9 +48,14 @@
             registerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Modifier l'intent pour lancer InscriptionActivity au lieu de registerUser()
                     Intent intent = new Intent(AuthActivity.this, InscriptionActivity.class);
                     startActivity(intent);
+                }
+            });
+            resetpassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resetPassword();
                 }
             });
         }
@@ -71,4 +78,25 @@
                         }
                     });
         }
+
+        private void resetPassword() {
+            String email = emailField.getText().toString();
+            if (!email.isEmpty()) {
+                mAuth.sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(AuthActivity.this, "Un e-mail de réinitialisation a été envoyé à votre adresse e-mail.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(AuthActivity.this, "Échec de l'envoi de l'e-mail de réinitialisation.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            } else {
+                Toast.makeText(AuthActivity.this, "Merci de saisir un email", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
+
