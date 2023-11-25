@@ -44,6 +44,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         ImageView mask2 = findViewById(R.id.addButton);
         ImageView mask3 = findViewById(R.id.shareButton);
         ImageView mask4 = findViewById(R.id.deleteButton);
+        ImageView mask5 = findViewById(R.id.star);
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +63,10 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
                     Movie movie = getIntent().getParcelableExtra("movie");
 
-                    // Ajoute la propriété "statut" au film avec la valeur par défaut "Pas vu"
+
                     movie.setStatut("Pas vu");
+
+                    movie.setFav("non");
 
                     userMoviesRef.child(String.valueOf(movie.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -114,7 +117,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     Toast.makeText(FilmDetailsActivity.this, "Aucun film disponible pour le partage", Toast.LENGTH_SHORT).show();
                 }
             }
-        });              //REPULL test
+        });
 
 
 
@@ -189,6 +192,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
             TextView descriptionTextView = findViewById(R.id.movie_description);
             descriptionTextView.setText(movie.getOverview());
         }
+
     }
 
 

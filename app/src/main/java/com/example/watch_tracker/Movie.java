@@ -19,6 +19,9 @@ public class Movie implements Parcelable {
     @SerializedName("statut")
     private String statut;
 
+    @SerializedName("Fav")
+    private String Fav;
+
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 
@@ -28,7 +31,7 @@ public class Movie implements Parcelable {
         // Constructeur vide requis par Firebase Realtime Database.
     }
 
-    // Constructeur avec arguments
+
     public Movie(int id, String title, String overview, String posterPath) {
         this.id = id;
         this.title = title;
@@ -39,7 +42,9 @@ public class Movie implements Parcelable {
     public void setStatut(String statut) {
         this.statut = statut;
     }
-    // Getters
+
+    public void setFav(String Fav){this.Fav = Fav;}
+
     public int getId() {
         return id;
     }
@@ -57,6 +62,8 @@ public class Movie implements Parcelable {
     }
 
     public String getStatut() {return statut;}
+
+    public String getFav(){return Fav;}
 
 
     protected Movie(Parcel in) {
