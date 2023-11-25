@@ -160,6 +160,59 @@ public class FilmDetailsActivity extends AppCompatActivity {
             }
         });
 
+        mask5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (currentUser != null) {
+                    String userId = currentUser.getUid();
+
+                    Movie movie = getIntent().getParcelableExtra("movie");
+
+                    if (movie != null) {
+                        DatabaseReference userMoviesRef = FirebaseDatabase.getInstance()
+                                .getReference()
+                                .child("users")
+                                .child(userId)
+                                .child("movies")
+                                .child(String.valueOf(movie.getId()));
+
+                        // Récupérez la valeur actuelle de Fav
+                        userMoviesRef.child("fav").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    String ancienneValeur = dataSnapshot.getValue(String.class);
+
+                                    // Basculez entre "oui" et "non"
+                                    String nouvelleValeur = (ancienneValeur.equals("oui")) ? "non" : "oui";
+
+                                    // Mettez à jour la valeur dans la base de données
+                                    userMoviesRef.child("fav").setValue(nouvelleValeur);
+
+                                    // Affichez le message approprié
+                                    if (nouvelleValeur.equals("oui")) {
+                                        Toast.makeText(FilmDetailsActivity.this, "Ajouté aux favoris", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(FilmDetailsActivity.this, "Retiré des favoris", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.e("Firebase", "Erreur lors de l'accès à la base de données : " + databaseError.getMessage());
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(FilmDetailsActivity.this, "Vous n'êtes pas authentifié", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
 
         // Récupérez les informations du film
         Movie movie = getIntent().getParcelableExtra("movie");
@@ -189,32 +242,9 @@ public class FilmDetailsActivity extends AppCompatActivity {
             TextView descriptionTextView = findViewById(R.id.movie_description);
             descriptionTextView.setText(movie.getOverview());
 
-//test4
-
-            if (movie != null && movie.getSeasons() != null) {
-                List<Season> seasons = movie.getSeasons();
-                if (seasons != null) {
-                    for (Season season : seasons) {
-                        // Affichez les détails de la saison
-                        Log.d("Season", "Season Number: " + season.getSeasonNumber());
-                        Log.d("Season", "Episode Count: " + season.getEpisodeCount());
-
-                        // Affichez les détails de chaque épisode
-                        List<Episode> episodes = season.getEpisodes();
-                        if (episodes != null) {
-                            for (Episode episode : episodes) {
-                                Log.d("Episode", "Episode Title: " + episode.getTitle());
-                                Log.d("Episode", "Episode Overview: " + episode.getOverview());
-                                // Ajoutez le code pour afficher d'autres détails de l'épisode dans votre mise en page
-
-                            }
-                        }
-                    }
-                }
-//test4
             }
 
 
         }
-    }
+
 }
