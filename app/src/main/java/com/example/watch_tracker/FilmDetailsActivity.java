@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.List;                                            //
+
 
 
 
@@ -37,7 +39,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
         titleTextView = findViewById(R.id.titleTextView);
         movieDescription = findViewById(R.id.movie_description);
-
 
 
         ImageView mask = findViewById(R.id.retourButton);
@@ -120,8 +121,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
         });
 
 
-
-
         mask4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +135,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     Movie movie = getIntent().getParcelableExtra("movie");
 
                     if (movie != null) {
-
 
 
                         DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies").child(String.valueOf(movie.getId()));
@@ -161,7 +159,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
         // Récupérez les informations du film
@@ -191,9 +188,33 @@ public class FilmDetailsActivity extends AppCompatActivity {
             // Description du film
             TextView descriptionTextView = findViewById(R.id.movie_description);
             descriptionTextView.setText(movie.getOverview());
+
+//test4
+
+            if (movie != null && movie.getSeasons() != null) {
+            List<Season> seasons = movie.getSeasons();
+            if (seasons != null) {
+                for (Season season : seasons) {
+                    // Affichez les détails de la saison
+                    Log.d("Season", "Season Number: " + season.getSeasonNumber());
+                    Log.d("Season", "Episode Count: " + season.getEpisodeCount());
+
+                    // Affichez les détails de chaque épisode
+                    List<Episode> episodes = season.getEpisodes();
+                    if (episodes != null) {
+                        for (Episode episode : episodes) {
+                            Log.d("Episode", "Episode Title: " + episode.getTitle());
+                            Log.d("Episode", "Episode Overview: " + episode.getOverview());
+                            // Ajoutez le code pour afficher d'autres détails de l'épisode dans votre mise en page
+
+                        }
+                        }
+                    }
+                }
+//test4
+            }
+
+
         }
-
     }
-
-
 }
