@@ -192,22 +192,22 @@ public class FilmDetailsActivity extends AppCompatActivity {
 //test4
 
             if (movie != null && movie.getSeasons() != null) {
-            List<Season> seasons = movie.getSeasons();
-            if (seasons != null) {
-                for (Season season : seasons) {
-                    // Affichez les détails de la saison
-                    Log.d("Season", "Season Number: " + season.getSeasonNumber());
-                    Log.d("Season", "Episode Count: " + season.getEpisodeCount());
+                List<Season> seasons = movie.getSeasons();
+                if (seasons != null) {
+                    for (Season season : seasons) {
+                        // Affichez les détails de la saison
+                        Log.d("Season", "Season Number: " + season.getSeasonNumber());
+                        Log.d("Season", "Episode Count: " + season.getEpisodeCount());
 
-                    // Affichez les détails de chaque épisode
-                    List<Episode> episodes = season.getEpisodes();
-                    if (episodes != null) {
-                        for (Episode episode : episodes) {
-                            Log.d("Episode", "Episode Title: " + episode.getTitle());
-                            Log.d("Episode", "Episode Overview: " + episode.getOverview());
-                            // Ajoutez le code pour afficher d'autres détails de l'épisode dans votre mise en page
+                        // Affichez les détails de chaque épisode
+                        List<Episode> episodes = season.getEpisodes();
+                        if (episodes != null) {
+                            for (Episode episode : episodes) {
+                                Log.d("Episode", "Episode Title: " + episode.getTitle());
+                                Log.d("Episode", "Episode Overview: " + episode.getOverview());
+                                // Ajoutez le code pour afficher d'autres détails de l'épisode dans votre mise en page
 
-                        }
+                            }
                         }
                     }
                 }

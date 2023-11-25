@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:context=".FilmDetailsActivity"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="63dp">
 
         <ImageView
             android:id="@+id/shareButton"
@@ -107,18 +107,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="408dp"
-            android:layout_height="242dp"
+            android:layout_width="264dp"
+            android:layout_height="140dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/affiche"
-            app:layout_constraintVertical_bias="0.091">
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/movie_description"
@@ -149,24 +148,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titleTextView"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@android:drawable/btn_star_big_off"
-            />
+            app:srcCompat="@android:drawable/btn_star_big_off" />
 
-        <ScrollView
-            android:layout_width="407dp"
-            android:layout_height="77dp"
+        <Spinner
+            android:id="@+id/seasonSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titleTextView"
-            app:layout_constraintVertical_bias="0.83">
+            app:layout_constraintVertical_bias="0.649" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/episodeRecyclerView"
+            android:layout_width="316dp"
+            android:layout_height="103dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.855" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

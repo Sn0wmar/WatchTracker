@@ -1,3 +1,4 @@
+
 package com.example.watch_tracker;
 
 import android.os.Parcel;
@@ -70,3 +71,4 @@ public class Episode implements Parcelable {
 
     // Le reste de votre implémentation Parcelable
 }
+
