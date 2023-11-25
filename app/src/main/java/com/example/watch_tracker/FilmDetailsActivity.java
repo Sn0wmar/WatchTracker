@@ -57,14 +57,13 @@ public class FilmDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
-
                     String userId = currentUser.getUid();
-
-
                     DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
 
                     Movie movie = getIntent().getParcelableExtra("movie");
 
+                    // Ajoute la propriété "statut" au film avec la valeur par défaut "Pas vu"
+                    movie.setStatut("Pas vu");
 
                     userMoviesRef.child(String.valueOf(movie.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -87,10 +86,10 @@ public class FilmDetailsActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(FilmDetailsActivity.this, "Vous etes pas authentifie", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FilmDetailsActivity.this, "Vous n'êtes pas authentifié", Toast.LENGTH_SHORT).show();
                 }
-
             }
+
         });
 
         mask3.setOnClickListener(new View.OnClickListener() {

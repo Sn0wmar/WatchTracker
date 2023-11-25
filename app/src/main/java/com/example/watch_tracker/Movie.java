@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 public class Movie implements Parcelable {
     private int id;
 
-    // Utilisez "title" pour les films et "name" pour les séries
     @SerializedName(value = "title", alternate = {"name"})
     private String title;
 
@@ -16,6 +15,9 @@ public class Movie implements Parcelable {
 
     @SerializedName("poster_path")
     private String posterPath;
+
+    @SerializedName("statut")
+    private String statut;
 
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -34,6 +36,9 @@ public class Movie implements Parcelable {
         this.posterPath = posterPath;
     }
 
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
     // Getters
     public int getId() {
         return id;
@@ -50,6 +55,8 @@ public class Movie implements Parcelable {
     public String getPosterPath() {
         return BASE_IMAGE_URL + posterPath;
     }
+
+    public String getStatut() {return statut;}
 
 
     protected Movie(Parcel in) {

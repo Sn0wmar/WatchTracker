@@ -25,6 +25,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
     public RVAdapter(Context context, List<Movie> movies, OnItemClickListener onItemClickListener) {
         this.movies = movies;
         this.onItemClickListener = onItemClickListener;
+
+
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
