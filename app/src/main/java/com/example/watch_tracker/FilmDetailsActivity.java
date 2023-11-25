@@ -13,8 +13,8 @@
     import androidx.appcompat.app.AppCompatActivity;
     import com.squareup.picasso.Callback;
     import com.squareup.picasso.Picasso;
-    import androidx.recyclerview.widget.LinearLayoutManager;
-
+    import com.google.android.gms.tasks.OnSuccessListener;
+    import com.google.android.gms.tasks.OnFailureListener;
     import com.example.watch_tracker.Movie;
     import android.widget.ImageView;
     import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +26,9 @@
     import com.google.firebase.database.DataSnapshot;
     import com.google.firebase.database.ValueEventListener;
     import com.google.firebase.database.FirebaseDatabase;
-    import java.util.List;                                            //
+    import java.util.List;
+    import androidx.recyclerview.widget.LinearLayoutManager;
+
 
 
 
@@ -57,6 +59,10 @@
             ImageView mask3 = findViewById(R.id.shareButton);
             ImageView mask4 = findViewById(R.id.deleteButton);
             ImageView mask5 = findViewById(R.id.star);
+
+            ImageView mask6 = findViewById(R.id.pasvu);
+            ImageView mask7 = findViewById(R.id.encours);
+            ImageView mask8 = findViewById(R.id.vu);
 
             mask.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -224,10 +230,136 @@
             });
 
 
+            mask6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (currentUser != null) {
+                        String userId = currentUser.getUid();
+
+                        Movie movie = getIntent().getParcelableExtra("movie");
+
+                        if (movie != null) {
+                            DatabaseReference userMoviesRef = FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .child("users")
+                                    .child(userId)
+                                    .child("movies")
+                                    .child(String.valueOf(movie.getId()));
+
+                            // Mettez à jour le statut directement
+                            userMoviesRef.child("statut").setValue("Pas vu")
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // La mise à jour du statut a réussi
+                                            Toast.makeText(FilmDetailsActivity.this, "Statut mis à jour avec succès", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // La mise à jour du statut a échoué
+                                            Toast.makeText(FilmDetailsActivity.this, "Échec de la mise à jour du statut : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(FilmDetailsActivity.this, "Vous n'êtes pas authentifié", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+
+
+            mask7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (currentUser != null) {
+                        String userId = currentUser.getUid();
+
+                        Movie movie = getIntent().getParcelableExtra("movie");
+
+                        if (movie != null) {
+                            DatabaseReference userMoviesRef = FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .child("users")
+                                    .child(userId)
+                                    .child("movies")
+                                    .child(String.valueOf(movie.getId()));
+
+                            // Mettez à jour le statut directement
+                            userMoviesRef.child("statut").setValue("En cours")
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // La mise à jour du statut a réussi
+                                            Toast.makeText(FilmDetailsActivity.this, "Statut mis à jour avec succès", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // La mise à jour du statut a échoué
+                                            Toast.makeText(FilmDetailsActivity.this, "Échec de la mise à jour du statut : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(FilmDetailsActivity.this, "Vous n'êtes pas authentifié", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            mask8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (currentUser != null) {
+                        String userId = currentUser.getUid();
+
+                        Movie movie = getIntent().getParcelableExtra("movie");
+
+                        if (movie != null) {
+                            DatabaseReference userMoviesRef = FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .child("users")
+                                    .child(userId)
+                                    .child("movies")
+                                    .child(String.valueOf(movie.getId()));
+
+                            // Mettez à jour le statut directement
+                            userMoviesRef.child("statut").setValue("Vu")
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // La mise à jour du statut a réussi
+                                            Toast.makeText(FilmDetailsActivity.this, "Statut mis à jour avec succès", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // La mise à jour du statut a échoué
+                                            Toast.makeText(FilmDetailsActivity.this, "Échec de la mise à jour du statut : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(FilmDetailsActivity.this, "Vous n'êtes pas authentifié", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
             // Récupérez les informations du film
             Movie movie = getIntent().getParcelableExtra("movie");
 
-// Affichez les informations
+            // Affichez les informations
             if (movie != null) {
                 titleTextView.setText(movie.getTitle());
 
