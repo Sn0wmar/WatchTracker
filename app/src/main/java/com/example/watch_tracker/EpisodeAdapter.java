@@ -1,3 +1,5 @@
+package com.example.watch_tracker;  //
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.watch_tracker.Episode;
-import com.example.watch_tracker.R;
+
+
+
 
 
 import java.util.List;

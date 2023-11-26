@@ -30,6 +30,10 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.watch_tracker.DescriptionAdapter;   //
 
+import android.widget.Spinner;   //
+import android.widget.ArrayAdapter;   //
+
+
 
 
 
@@ -42,6 +46,10 @@ public class FilmDetailsActivity extends AppCompatActivity {
     private RecyclerView rvDescription;
     private DescriptionAdapter descriptionAdapter;
     private List<String> descriptionList;
+
+
+    private RecyclerView rvEpisodes;           //
+    private Spinner spinnerSeason;           //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,9 @@ public class FilmDetailsActivity extends AppCompatActivity {
         descriptionAdapter = new DescriptionAdapter(descriptionList);
         rvDescription.setAdapter(descriptionAdapter);
         rvDescription.setLayoutManager(new LinearLayoutManager(this));
+
+        rvEpisodes = findViewById(R.id.rvEpisodes);            //
+        spinnerSeason = findViewById(R.id.spinnerSeason);   //
 
 
         ImageView mask = findViewById(R.id.retourButton);
@@ -392,26 +403,34 @@ public class FilmDetailsActivity extends AppCompatActivity {
             // Initialisez la liste de description
             descriptionList = new ArrayList<>();   //
 
-            if (movie.getSeasons() != null && !movie.getSeasons().isEmpty()) {
-                // Affichez les saisons et les épisodes
-                List<String> seasonDescriptions = new ArrayList<>();
-                for (Season season : movie.getSeasons()) {
-                    // Ajoutez les descriptions des saisons à la liste
-                    seasonDescriptions.add("Season " + season.getSeasonNumber());
+
+
+                if (movie.getSeasons() != null && !movie.getSeasons().isEmpty()) {
+                    // Affichez les saisons et les épisodes
+                    List<String> seasonDescriptions = new ArrayList<>();
+                    for (Season season : movie.getSeasons()) {
+                        // Ajoutez les descriptions des saisons à la liste
+                        seasonDescriptions.add("Season " + season.getSeasonNumber());
+                    }
+
+                    ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, seasonDescriptions);
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerSeason.setAdapter(spinnerAdapter);
+
+                    // Initialisez le RecyclerView des épisodes
+                    List<Episode> episodes = movie.getSeasons().get(0).getEpisodes(); // Vous pouvez ajuster cela en fonction de la saison sélectionnée
+                    EpisodeAdapter episodeAdapter = new EpisodeAdapter(this, episodes);
+                    rvEpisodes.setLayoutManager(new LinearLayoutManager(this));
+                    rvEpisodes.setAdapter(episodeAdapter);
+                } else {
+                    // Affichez la description du film
+                    descriptionList.add(movie.getOverview());
+                    DescriptionAdapter descriptionAdapter = new DescriptionAdapter(descriptionList);
+                    rvDescription.setLayoutManager(new LinearLayoutManager(this));
+                    rvDescription.setAdapter(descriptionAdapter);
                 }
 
-                DescriptionAdapter descriptionAdapter = new DescriptionAdapter(seasonDescriptions);
-                rvDescription.setLayoutManager(new LinearLayoutManager(this));
-                rvDescription.setAdapter(descriptionAdapter);
-            } else {
-                // Affichez la description du film
-                descriptionList.add(movie.getOverview());
-                DescriptionAdapter descriptionAdapter = new DescriptionAdapter(descriptionList);
-                rvDescription.setLayoutManager(new LinearLayoutManager(this));
-                rvDescription.setAdapter(descriptionAdapter);
-            }
-
-            //ajout3
+                //ajout3
 
 
         }

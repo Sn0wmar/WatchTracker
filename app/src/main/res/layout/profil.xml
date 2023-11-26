@@ -16,17 +16,17 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ami"
-        android:layout_width="67dp"
-        android:layout_height="73dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:clickable="true"
         android:src="@drawable/ajouter_un_ami"
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/vu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.965"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.853" />
+        app:layout_constraintVertical_bias="0.843" />
 
     <ImageView
         android:id="@+id/pas_vu"
@@ -54,17 +54,17 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bouton_plus"
-        android:layout_width="67dp"
-        android:layout_height="61dp"
+        android:layout_width="54dp"
+        android:layout_height="62dp"
         android:clickable="true"
         android:src="@drawable/baseline_add_24"
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/vu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.854" />
+        app:layout_constraintVertical_bias="0.844" />
 
     <ImageView
         android:id="@+id/profil"

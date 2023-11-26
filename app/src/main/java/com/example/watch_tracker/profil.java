@@ -97,8 +97,8 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         mask7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(profil.this, "En cours de developpement", Toast.LENGTH_SHORT).show();
-
+                Intent it = new Intent(getApplicationContext(), Bouton.class);
+                startActivity(it);
             }
         });
         mask8.setOnClickListener(new View.OnClickListener() {
