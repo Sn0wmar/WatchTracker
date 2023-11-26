@@ -23,7 +23,7 @@
             android:imeActionId="@+id/action_search"
             android:imeActionLabel="Rechercher"
             android:imeOptions="actionSearch"
-            android:inputType="text"
+            android:inputType="text|textCapSentences"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
