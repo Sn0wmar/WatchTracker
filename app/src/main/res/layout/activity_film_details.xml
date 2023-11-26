@@ -139,7 +139,6 @@
                 android:orientation="vertical">
 
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_description"
                     android:layout_width="match_parent"
@@ -152,7 +151,6 @@
                     tools:itemCount="1" />
 
 
-
             </LinearLayout>
 
         </ScrollView>
@@ -163,7 +161,7 @@
             android:layout_width="54dp"
             android:layout_height="55dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintStart_toEndOf="@+id/affiche"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
             app:srcCompat="@drawable/oeil" />
@@ -173,25 +171,25 @@
             android:layout_width="55dp"
             android:layout_height="51dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="36dp"
             app:layout_constraintBottom_toTopOf="@+id/star"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.641"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.153"
             app:srcCompat="@drawable/pause" />
 
         <ImageView
             android:id="@+id/vu"
             android:layout_width="51dp"
             android:layout_height="51dp"
-            app:layout_constraintBottom_toTopOf="@+id/rv_description"
-            app:layout_constraintEnd_toStartOf="@+id/star"
-            app:layout_constraintHorizontal_bias="0.338"
-            app:layout_constraintStart_toEndOf="@+id/affiche"
-            app:layout_constraintTop_toBottomOf="@+id/pasvu"
-            app:layout_constraintVertical_bias="0.577"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.662"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.297"
             app:srcCompat="@drawable/oeil__1_" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
