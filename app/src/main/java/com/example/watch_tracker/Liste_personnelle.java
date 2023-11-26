@@ -1,11 +1,20 @@
 package com.example.watch_tracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,8 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +34,8 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
     private RVAdapter rvAdapter;
     private List<Movie> movieList;
     private ConstraintLayout constraintLayout;
+    private EditText searchField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,16 +99,54 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         movieList = new ArrayList<>();
         rvAdapter = new RVAdapter(this, movieList, this);
         recyclerView.setAdapter(rvAdapter);
 
-
-
-        recyclerView = findViewById(R.id.rv_movies);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         constraintLayout = findViewById(R.id.listeperso);
+
+        // Ajout du champ de recherche
+        searchField = findViewById(R.id.searchField);
+        searchField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                performSearch(editable.toString());
+            }
+        });
+
+        // Définir un écouteur pour la touche "Done" du clavier
+        searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // Masquer le clavier
+                    hideKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Ajouter un écouteur pour la touche de retour
+        searchField.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    // Masquer le clavier
+                    hideKeyboard();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         loadMovies();
 
@@ -108,13 +157,10 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             public boolean onPreDraw() {
                 int height = constraintLayout.getHeight();
                 if (height != previousHeight) {
-                    // La hauteur de la fenêtre a changé
                     boolean isKeyboardVisible = height < previousHeight;
                     if (isKeyboardVisible) {
-                        // Le clavier est affiché, masquez la RecyclerView
                         recyclerView.setVisibility(View.GONE);
                     } else {
-                        // Le clavier n'est pas affiché, montrez la RecyclerView
                         recyclerView.setVisibility(View.VISIBLE);
                     }
                     previousHeight = height;
@@ -151,10 +197,51 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         }
     }
 
+    private void performSearch(String query) {
+        loadMovies(query);
+    }
+
+    private void loadMovies(String query) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
+            Query searchQuery = userMoviesRef.orderByChild("title").startAt(query).endAt(query + "\uf8ff");
+
+            searchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    movieList.clear();
+                    for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
+                        Movie movie = movieSnapshot.getValue(Movie.class);
+                        if (movie != null) {
+                            movieList.add(movie);
+                        }
+                    }
+                    rvAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Gestion des erreurs de base de données
+                }
+            });
+        }
+    }
+
     @Override
     public void onItemClick(Movie movie) {
         Intent intent = new Intent(Liste_personnelle.this, FilmDetailsActivity.class);
-        intent.putExtra("movie", movie); // Passez les informations du film à la nouvelle activité
+        intent.putExtra("movie", movie);
         startActivity(intent);
+    }
+
+    // Fonction pour masquer le clavier
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(searchField.getWindowToken(), 0);
+        }
     }
 }
