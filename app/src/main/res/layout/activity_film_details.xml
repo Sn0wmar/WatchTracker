@@ -151,6 +151,32 @@
                     tools:itemCount="1" />
 
 
+                //ajoute3
+                <Spinner
+                    android:id="@+id/spinnerSeason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/rvEpisodes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_description"
+                    tools:itemCount="1" />
+
+                <!-- Ajouter la RecyclerView pour les épisodes -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEpisodes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerSeason"
+                    tools:itemCount="1" />
+
+
+                //ajout3
             </LinearLayout>
 
         </ScrollView>

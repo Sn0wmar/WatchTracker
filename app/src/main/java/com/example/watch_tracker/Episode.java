@@ -1,15 +1,17 @@
-
 package com.example.watch_tracker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.google.gson.annotations.SerializedName;
 
 public class Episode implements Parcelable {
-    // Ajoutez les propriétés nécessaires pour votre classe Episode
+    @SerializedName("title")
     private String title;
+
+    @SerializedName("overview")
     private String overview;
 
-    // Ajoutez les autres propriétés nécessaires
+    // Ajoutez les autres propriétés nécessaires pour votre classe Episode
 
     // Constructeur vide nécessaire pour Parcelable
     public Episode() {
@@ -71,4 +73,3 @@ public class Episode implements Parcelable {
 
     // Le reste de votre implémentation Parcelable
 }
-
