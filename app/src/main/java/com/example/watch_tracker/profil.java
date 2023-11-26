@@ -42,6 +42,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         ImageView mask6 = findViewById(R.id.ami);
         ImageView mask7 = findViewById(R.id.bouton_plus);
         ImageView mask8 = findViewById(R.id.ami);
+        ImageView mask9 = findViewById(R.id.info); //
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +107,13 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
             public void onClick(View view) {
                 Toast.makeText(profil.this, "En cours de developpement", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        mask9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), InformationsActivity.class);
+                startActivity(it);
             }
         });
         recyclerView = findViewById(R.id.rv_movies);
