@@ -110,7 +110,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                             if (!dataSnapshot.exists()) {
                                 // Le film n'est pas encore enregistré, ajoutez-le à la base de données
                                 userMoviesRef.child(String.valueOf(movie.getId())).setValue(movie);
-                                Toast.makeText(FilmDetailsActivity.this, "Film enregistré avec succès", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FilmDetailsActivity.this, "Contenu enregistré avec succès", Toast.LENGTH_SHORT).show();
                             } else {
                                 // Le film est déjà enregistré
                                 Toast.makeText(FilmDetailsActivity.this, "Ce film est déjà enregistré", Toast.LENGTH_SHORT).show();
@@ -178,7 +178,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                 if (databaseError == null) {
 
-                                    Toast.makeText(FilmDetailsActivity.this, "Film supprimé avec succès", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FilmDetailsActivity.this, "Contenu supprimé avec succès", Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else {
 
