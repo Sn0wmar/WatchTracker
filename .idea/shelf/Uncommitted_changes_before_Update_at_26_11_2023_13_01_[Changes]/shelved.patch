@@ -1,0 +1,25 @@
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <targetSelectedWithDropDown>\r\n      <Target>\r\n        <type value=\"QUICK_BOOT_TARGET\" />\r\n        <deviceKey>\r\n          <Key>\r\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n            <value value=\"C:\\Users\\esnau\\.android\\avd\\Pixel_7_Pro_API_33.avd\" />\r\n          </Key>\r\n        </deviceKey>\r\n      </Target>\r\n    </targetSelectedWithDropDown>\r\n    <timeTargetWasSelectedWithDropDown value=\"2023-11-22T07:48:41.257396400Z\" />\r\n    <targetsSelectedWithDialog>\r\n      <Target>\r\n        <type value=\"QUICK_BOOT_TARGET\" />\r\n        <deviceKey>\r\n          <Key>\r\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n            <value value=\"C:\\Users\\esnau\\.android\\avd\\Pixel_7_Pro_API_30.avd\" />\r\n          </Key>\r\n        </deviceKey>\r\n      </Target>\r\n    </targetsSelectedWithDialog>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision c662be574c5586aebc7f6bc53a79dd9ee23495e4)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1700932419595)
+@@ -7,12 +7,12 @@
+         <deviceKey>
+           <Key>
+             <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\esnau\.android\avd\Pixel_7_Pro_API_33.avd" />
++            <value value="C:\Users\alexa\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
+           </Key>
+         </deviceKey>
+       </Target>
+     </targetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2023-11-22T07:48:41.257396400Z" />
++    <timeTargetWasSelectedWithDropDown value="2023-11-25T17:12:04.571975200Z" />
+     <targetsSelectedWithDialog>
+       <Target>
+         <type value="QUICK_BOOT_TARGET" />
