@@ -124,7 +124,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_description"
-            android:layout_width="407dp"
+            android:layout_width="380dp"
             android:layout_height="327dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
