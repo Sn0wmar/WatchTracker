@@ -18,6 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.Toast;
+
 
 public class profil extends AppCompatActivity implements RVAdapter.OnItemClickListener {
 
@@ -38,7 +40,8 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
         ImageView mask6 = findViewById(R.id.ami);
-        //ImageView mask7 = findViewById(R.id.bouton_plus3);
+        ImageView mask7 = findViewById(R.id.bouton_plus);
+        ImageView mask8 = findViewById(R.id.ami);
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +94,20 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
 
 
-        /*mask7.setOnClickListener(new View.OnClickListener() {
+        mask7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), Bouton.class);
-                startActivity(it);
+                Toast.makeText(profil.this, "En cours de developpement", Toast.LENGTH_SHORT).show();
+
             }
-        });*/
+        });
+        mask8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(profil.this, "En cours de developpement", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
