@@ -43,7 +43,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         constraintLayout = findViewById(R.id.Bouton);
         searchField = findViewById(R.id.searchField);
 
-        // Ajout de la détection d'appui sur les boutons
+        // détection d'appui sur les boutons
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -90,18 +90,18 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
             }
         });
 
-        // Ajout d'un écouteur de focus pour cacher le clavier lorsqu'il y a un focus sur l'EditText
+
         searchField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
-                    // Cacher le clavier si l'EditText perd le focus
+                    // Cacher le clavier si user n'ecris pas
                     hideKeyboard();
                 }
             }
         });
 
-        // Ajout d'un écouteur de touche pour détecter l'appui sur la touche "Done"
+
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -113,9 +113,10 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
                 return false;
             }
         });
-
+        // recupere les contenus populaires
         getTrendingContent();
 
+        // retire la recyclerview si le clavier est affiche a l'ecran
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
@@ -131,15 +132,17 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
             }
         });
 
+
+
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Ne rien faire ici
+                // rien faire ici
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Ne rien faire ici
+                // rien faire ici
             }
 
             @Override
@@ -150,11 +153,12 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
     }
 
     private void getTrendingContent() {
-        Call<MovieResponse> call = TMDbApiClient.getTrendingContent(1);
+
+        Call<MovieResponse> call = TMDbApiClient.getTrendingContent(1); // demande a l'api de recuperer la page 1 des contenus populaires
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) { // si on a recuperer on affiche
                     rvAdapter = new RVAdapter(Bouton.this, response.body().getResults(), Bouton.this);
                     recyclerView.setAdapter(rvAdapter);
                 } else {
@@ -170,11 +174,12 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
     }
 
     private void performSearch(String query) {
+        //on recherhe le contenu demande par user
         Call<MovieResponse> call = TMDbApiClient.getApiClient().searchAllContent(API_KEY, query, langage, 1);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) { //si on a un resultat on affiche
                     rvAdapter = new RVAdapter(Bouton.this, response.body().getResults(), Bouton.this);
                     recyclerView.setAdapter(rvAdapter);
                 } else {
@@ -191,12 +196,13 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
 
     @Override
     public void onItemClick(Movie movie) {
+        // si on clique sur un film on afffiche les details de celui-ci
         Intent intent = new Intent(Bouton.this, FilmDetailsActivity.class);
         intent.putExtra("movie", movie);
         startActivity(intent);
     }
 
-    // Méthode pour cacher le clavier
+    // methode pour cacher le clavier
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {

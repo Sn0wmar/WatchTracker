@@ -42,7 +42,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         ImageView mask6 = findViewById(R.id.ami);
         ImageView mask7 = findViewById(R.id.bouton_plus);
         ImageView mask8 = findViewById(R.id.ami);
-        ImageView mask9 = findViewById(R.id.info); //
+        ImageView mask9 = findViewById(R.id.info);
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +116,8 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
                 startActivity(it);
             }
         });
+
+
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -139,13 +141,13 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
             public boolean onPreDraw() {
                 int height = constraintLayout.getHeight();
                 if (height != previousHeight) {
-                    // La hauteur de la fenêtre a changé
+
                     boolean isKeyboardVisible = height < previousHeight;
                     if (isKeyboardVisible) {
-                        // Le clavier est affiché, masquez la RecyclerView
+
                         recyclerView.setVisibility(View.GONE);
                     } else {
-                        // Le clavier n'est pas affiché, montrez la RecyclerView
+
                         recyclerView.setVisibility(View.VISIBLE);
                     }
                     previousHeight = height;
@@ -155,7 +157,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
-    private void loadMovies() {
+    private void loadMovies() { // charge les film qui on Fav = "oui"
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -176,7 +178,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+
                 }
             });
         }

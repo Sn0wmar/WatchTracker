@@ -41,6 +41,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.en_cours);
 
+        // détection d'appui sur les boutons
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -96,6 +97,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
+        //initialisation rv
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -105,7 +107,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
 
         constraintLayout = findViewById(R.id.encours);
 
-        // Ajout du champ de recherche
+        // champ de recherche
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,12 +124,12 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        // Définir un écouteur pour la touche "Done" du clavier
+
         searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Masquer le clavier
+                    // Cacher le clavier si user n'ecris pas
                     hideKeyboard();
                     return true;
                 }
@@ -135,12 +137,12 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        // Ajouter un écouteur pour la touche de retour
+
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    // Masquer le clavier
+                    // Masquer le clavier quand user clique sur retour
                     hideKeyboard();
                     return true;
                 }
@@ -148,11 +150,12 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
+        // charge les films
         loadMovies();
 
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
-
+            // retire la rv quand le clavier est affiche a l'ecran
             @Override
             public boolean onPreDraw() {
                 int height = constraintLayout.getHeight();
@@ -171,22 +174,28 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
     }
 
     private void loadMovies() {
+        //recupere info user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         if (currentUser != null) {
+            //recupere id user
             String userId = currentUser.getUid();
 
+            // recupere les films de user
             DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
             userMoviesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    // vide la liste
                     movieList.clear();
                     for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
+                        // regarde tous les films de user
                         Movie movie = movieSnapshot.getValue(Movie.class);
-                        if (movie != null && "En cours".equals(movie.getStatut())) {
-                            movieList.add(movie);
+                        if (movie != null && "En cours".equals(movie.getStatut())) { // si different de nul et à le statut "En cours"
+                            movieList.add(movie); //on ajoute a la liste de film
                         }
                     }
-                    rvAdapter.notifyDataSetChanged();
+                    rvAdapter.notifyDataSetChanged(); // afficher la liste
                 }
 
                 @Override
@@ -202,17 +211,19 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
     }
 
     private void loadMovies(String query) {
+        // recup info user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
+            //recup id user
             String userId = currentUser.getUid();
-
+           //  recherche dans la firebase le contenu correspondant a ce que user à ecris
             DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
             Query searchQuery = userMoviesRef.orderByChild("title").startAt(query).endAt(query + "\uf8ff");
 
             searchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    movieList.clear();
+                    movieList.clear(); // vide la liste
                     for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
                         Movie movie = movieSnapshot.getValue(Movie.class);
                         if (movie != null && "En cours".equals(movie.getStatut())) {

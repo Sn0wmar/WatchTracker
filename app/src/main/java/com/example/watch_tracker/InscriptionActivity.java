@@ -6,10 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +31,7 @@ public class InscriptionActivity extends AppCompatActivity {
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
         inscriptionButton = findViewById(R.id.inscriptionButton);
-        retourButton = findViewById(R.id.retourButton); // Initialisation du bouton de retour
+        retourButton = findViewById(R.id.retourButton);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -44,7 +42,7 @@ public class InscriptionActivity extends AppCompatActivity {
             }
         });
 
-        // Ajout de l'OnClickListener pour le bouton de retour
+
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +56,7 @@ public class InscriptionActivity extends AppCompatActivity {
     private void registerUser() {
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
-
+// inscris un nouvel utilisateur
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -67,7 +65,7 @@ public class InscriptionActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(InscriptionActivity.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
                         } else {
-                            // Affiche le message d'erreur dans la console Logcat
+
                             task.getException().printStackTrace();
                             Toast.makeText(InscriptionActivity.this, "Échec de l'inscription : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

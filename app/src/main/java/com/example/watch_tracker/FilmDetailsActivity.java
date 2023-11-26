@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.widget.Toast;                      //
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -28,16 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.example.watch_tracker.DescriptionAdapter;   //
-
-import android.widget.Spinner;   //
-import android.widget.ArrayAdapter;   //
-
-
-
-
-
-
+import com.example.watch_tracker.DescriptionAdapter;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
 public class FilmDetailsActivity extends AppCompatActivity {
 
@@ -48,8 +41,8 @@ public class FilmDetailsActivity extends AppCompatActivity {
     private List<String> descriptionList;
 
 
-    private RecyclerView rvEpisodes;           //
-    private Spinner spinnerSeason;           //
+    private RecyclerView rvEpisodes;
+    private Spinner spinnerSeason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +59,16 @@ public class FilmDetailsActivity extends AppCompatActivity {
         rvDescription.setAdapter(descriptionAdapter);
         rvDescription.setLayoutManager(new LinearLayoutManager(this));
 
-        rvEpisodes = findViewById(R.id.rvEpisodes);            //
-        spinnerSeason = findViewById(R.id.spinnerSeason);   //
+        rvEpisodes = findViewById(R.id.rvEpisodes);
+        spinnerSeason = findViewById(R.id.spinnerSeason);
 
 
+        // détection d'appui sur les boutons
         ImageView mask = findViewById(R.id.retourButton);
         ImageView mask2 = findViewById(R.id.addButton);
         ImageView mask3 = findViewById(R.id.shareButton);
         ImageView mask4 = findViewById(R.id.deleteButton);
         ImageView mask5 = findViewById(R.id.star);
-
         ImageView mask6 = findViewById(R.id.pasvu);
         ImageView mask7 = findViewById(R.id.encours);
         ImageView mask8 = findViewById(R.id.vu);
@@ -84,22 +77,24 @@ public class FilmDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-            }
+            } // ferme activity
         });
 
         mask2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //recup info user
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     String userId = currentUser.getUid();
-                    DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
 
+                    //ajout film dans firebase
+                    DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
                     Movie movie = getIntent().getParcelableExtra("movie");
 
-
+                    // ajout d'un statut par defaut
                     movie.setStatut("Pas vu");
-
+                    // ajout dans la liste des non favori
                     movie.setFav("non");
 
                     userMoviesRef.child(String.valueOf(movie.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -134,7 +129,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Movie movie = getIntent().getParcelableExtra("movie");
 
-                if (movie != null) {
+                if (movie != null) { // partage film
                     String title = movie.getTitle();
                     String description = movie.getOverview();
 
@@ -167,7 +162,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
                     Movie movie = getIntent().getParcelableExtra("movie");
 
-                    if (movie != null) {
+                    if (movie != null) {// suprimer film
 
 
                         DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies").child(String.valueOf(movie.getId()));
@@ -194,6 +189,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         });
 
         mask5.setOnClickListener(new View.OnClickListener() {
+            //modifie la valeur de l'attribut Fav
             @Override
             public void onClick(View view) {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -224,7 +220,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                                     // Mettez à jour la valeur dans la base de données
                                     userMoviesRef.child("fav").setValue(nouvelleValeur);
 
-                                    // Affichez le message approprié
+
                                     if (nouvelleValeur.equals("oui")) {
                                         Toast.makeText(FilmDetailsActivity.this, "Ajouté aux favoris", Toast.LENGTH_SHORT).show();
                                     } else {
@@ -246,6 +242,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         });
 
 
+        //changement de statut
         mask6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -380,7 +377,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         if (movie != null) {
             titleTextView.setText(movie.getTitle());
 
-            // Chargez l'image du film avec Picasso
+            // Chargez l'affiche du film
             ImageView moviePoster = findViewById(R.id.affiche);
             Picasso.get()
                     .load(movie.getPosterPath())
@@ -388,7 +385,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     .into(moviePoster, new Callback() {
                         @Override
                         public void onSuccess() {
-                            // Image chargée avec succès
+                            // affiche chargée avec succès
                         }
 
                         @Override
@@ -398,10 +395,10 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     });
 
 
-            // ajout3
+
 
             // Initialisez la liste de description
-            descriptionList = new ArrayList<>();   //
+            descriptionList = new ArrayList<>();
 
 
 
@@ -418,7 +415,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     spinnerSeason.setAdapter(spinnerAdapter);
 
                     // Initialisez le RecyclerView des épisodes
-                    List<Episode> episodes = movie.getSeasons().get(0).getEpisodes(); // Vous pouvez ajuster cela en fonction de la saison sélectionnée
+                    List<Episode> episodes = movie.getSeasons().get(0).getEpisodes();
                     EpisodeAdapter episodeAdapter = new EpisodeAdapter(this, episodes);
                     rvEpisodes.setLayoutManager(new LinearLayoutManager(this));
                     rvEpisodes.setAdapter(episodeAdapter);
@@ -430,7 +427,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     rvDescription.setAdapter(descriptionAdapter);
                 }
 
-                //ajout3
 
 
         }

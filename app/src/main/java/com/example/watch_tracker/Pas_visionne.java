@@ -41,6 +41,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pas_visionne);
 
+        // détection d'appui sur les boutons
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -96,6 +97,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
             }
         });
 
+        // initialisation rv
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -105,7 +107,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
 
         constraintLayout = findViewById(R.id.pasvu);
 
-        // Ajout du champ de recherche
+        //champ de recherche
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,7 +124,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
             }
         });
 
-        // Définir un écouteur pour la touche "Done" du clavier
+
         searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -135,7 +137,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
             }
         });
 
-        // Ajouter un écouteur pour la touche de retour
+
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -148,6 +150,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
             }
         });
 
+        // charger film
         loadMovies();
 
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -171,6 +174,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
     }
 
     private void loadMovies() {
+        // charge les film enregistre par user qui ont le statut "Pas vu"
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -201,7 +205,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
         loadMovies(query);
     }
 
-    private void loadMovies(String query) {
+    private void loadMovies(String query) { // affiche les film correspondant a la recherche et qui ont le statut "Pas Vu"
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -224,7 +228,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+
                 }
             });
         }
@@ -237,7 +241,7 @@ public class Pas_visionne extends AppCompatActivity implements RVAdapter.OnItemC
         startActivity(intent);
     }
 
-    // Fonction pour masquer le clavier
+    // masquer le clavier
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {

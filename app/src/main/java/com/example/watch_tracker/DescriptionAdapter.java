@@ -6,16 +6,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-import java.util.ArrayList;  //
+import java.util.ArrayList;
 
 public class DescriptionAdapter extends RecyclerView.Adapter<DescriptionAdapter.ViewHolder> {
 
     private List<String> descriptionList;
-    protected List<Season> seasons;                          //ajout3
+    protected List<Season> seasons;
 
-    public DescriptionAdapter(List<String> descriptionList) {
+    public DescriptionAdapter(List<String> descriptionList) { // affiche la description du contenu
         this.descriptionList = descriptionList;
-        this.seasons = new ArrayList<>(); // ajout3
+        this.seasons = new ArrayList<>();
     }
 
     public void setDescriptionList(List<String> descriptionList) {
@@ -27,7 +27,7 @@ public class DescriptionAdapter extends RecyclerView.Adapter<DescriptionAdapter.
         this.seasons = seasons;
         notifyDataSetChanged();
     }
-  //ajout3
+
   public static class SeasonDescriptionAdapter extends RecyclerView.Adapter<ViewHolder> {
       private List<Season> seasons;
 
@@ -44,7 +44,7 @@ public class DescriptionAdapter extends RecyclerView.Adapter<DescriptionAdapter.
       @Override
       public void onBindViewHolder(ViewHolder holder, int position) {
           Season season = seasons.get(position);
-          holder.descriptionTextView.setText(season.getSeasonName()); // Remplacez getSeasonName() par la méthode appropriée
+          holder.descriptionTextView.setText(season.getSeasonName());
       }
 
       @Override
@@ -52,7 +52,7 @@ public class DescriptionAdapter extends RecyclerView.Adapter<DescriptionAdapter.
           return seasons.size();
       }
   }
-//ajout 3
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView descriptionTextView;
 

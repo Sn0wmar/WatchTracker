@@ -50,7 +50,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
         Movie movie = movies.get(position);
         holder.movieTitle.setText(movie.getTitle());
-        // Chargez l'image du film avec Picasso
+
 
         Picasso.get()
                 .load(movie.getPosterPath())
@@ -58,7 +58,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
                 .into(holder.moviePoster, new Callback() {
                     @Override
                     public void onSuccess() {
-                        // Image chargée avec succès
+
                     }
 
                     @Override
@@ -75,7 +75,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Appel de la méthode onItemClick de l'interface
+
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(movies.get(position));
                 }

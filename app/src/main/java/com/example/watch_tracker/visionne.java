@@ -105,7 +105,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
 
         constraintLayout = findViewById(R.id.Vu);
 
-        // Ajout du champ de recherche
+        //champ de recherche
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,7 +122,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        // Définir un écouteur pour la touche "Done" du clavier
+
         searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -135,7 +135,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        // Ajouter un écouteur pour la touche de retour
+
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -170,7 +170,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         });
     }
 
-    private void loadMovies() {
+    private void loadMovies() { // charge les film de firebase avec statut "Vu"
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -191,7 +191,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+
                 }
             });
         }
@@ -201,7 +201,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         loadMovies(query);
     }
 
-    private void loadMovies(String query) {
+    private void loadMovies(String query) { // recherche parmis film avec le statu "Vu" de firebase
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -224,7 +224,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+
                 }
             });
         }
@@ -237,7 +237,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         startActivity(intent);
     }
 
-    // Fonction pour masquer le clavier
+    // masquer le clavier
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {

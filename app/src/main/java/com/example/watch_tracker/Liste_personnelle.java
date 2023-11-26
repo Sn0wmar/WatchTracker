@@ -41,6 +41,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liste_personnelle);
 
+        // détection d'appui sur les boutons
         ImageView mask = findViewById(R.id.pas_vu_2);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -95,7 +96,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
                 startActivity(it);
             }
         });
-
+        //initialisation rv
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -105,7 +106,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
 
         constraintLayout = findViewById(R.id.listeperso);
 
-        // Ajout du champ de recherche
+        // champ de recherche
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,7 +123,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             }
         });
 
-        // Définir un écouteur pour la touche "Done" du clavier
+
         searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -135,7 +136,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             }
         });
 
-        // Ajouter un écouteur pour la touche de retour
+
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -148,13 +149,14 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             }
         });
 
+        // charge film
         loadMovies();
 
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
             @Override
-            public boolean onPreDraw() {
+            public boolean onPreDraw() { // si le clavier est affiche la rv disparait
                 int height = constraintLayout.getHeight();
                 if (height != previousHeight) {
                     boolean isKeyboardVisible = height < previousHeight;
@@ -170,7 +172,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         });
     }
 
-    private void loadMovies() {
+    private void loadMovies() { // affiche tous les films de l'utilisateur connecté
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -197,11 +199,11 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         }
     }
 
-    private void performSearch(String query) {
+    private void performSearch(String query) { // fait une recherche
         loadMovies(query);
     }
 
-    private void loadMovies(String query) {
+    private void loadMovies(String query) {  // charge les film correspondant a la recherche et present dans firebase du user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -237,7 +239,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         startActivity(intent);
     }
 
-    // Fonction pour masquer le clavier
+    // masquer le clavier
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {

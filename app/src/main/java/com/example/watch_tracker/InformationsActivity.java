@@ -18,8 +18,7 @@ public class InformationsActivity extends AppCompatActivity {
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(), profil.class);
-                startActivity(it);
+                finish();
             }
         });
 

@@ -3,8 +3,7 @@ package com.example.watch_tracker;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;    //
+import java.util.List;
 
 public class Movie implements Parcelable {
     private int id;
@@ -24,16 +23,16 @@ public class Movie implements Parcelable {
     @SerializedName("Fav")
     private String Fav;
 
-    @SerializedName("seasons")       //
-    private List<Season> seasons;   //
+    @SerializedName("seasons")
+    private List<Season> seasons;
 
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 
 
-    // Constructeur sans argument nécessaire pour Firebase
+
     public Movie() {
-        // Constructeur vide requis par Firebase Realtime Database.
+
     }
 
 
@@ -71,7 +70,7 @@ public class Movie implements Parcelable {
     public String getFav(){return Fav;}
 
 
-     //test4
+
     public List<Season> getSeasons() {
         return seasons;
     }
@@ -79,7 +78,7 @@ public class Movie implements Parcelable {
     public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
     }
-   //test 4
+
 
     protected Movie(Parcel in) {
         id = in.readInt();

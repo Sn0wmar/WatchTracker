@@ -16,8 +16,8 @@ public class Season implements Parcelable {
     private List<Episode> episodes;
 
 
-    @SerializedName("season_name")           //
-    private String seasonName;           //
+    @SerializedName("season_name")
+    private String seasonName;
 
 
     public String getSeasonName() {
@@ -28,9 +28,6 @@ public class Season implements Parcelable {
         this.seasonName = seasonName;
     }
 
-    // Ajoutez les autres propriétés nécessaires
-
-    // Les méthodes getters et setters nécessaires
 
     public int getSeasonNumber() {
         return seasonNumber;
@@ -58,19 +55,19 @@ public class Season implements Parcelable {
 
 
 
-//ajout3
+
 
     public Season() {
-        // Constructeur vide nécessaire pour Parcelable
+
     }
 
-    //ajout3
+
     protected Season(Parcel in) {
         seasonNumber = in.readInt();
         episodeCount = in.readInt();
-        episodes = in.createTypedArrayList(Episode.CREATOR);             //
-        seasonName = in.readString();   //
-        // Ajoutez la logique pour lire la liste d'épisodes depuis le Parcel
+        episodes = in.createTypedArrayList(Episode.CREATOR);
+        seasonName = in.readString();
+
     }
 
     @Override
@@ -79,7 +76,7 @@ public class Season implements Parcelable {
         dest.writeInt(episodeCount);
         dest.writeTypedList(episodes);
         dest.writeString(seasonName);  //
-        // Ajoutez la logique pour écrire la liste d'épisodes dans le Parcel
+
     }
 
     @Override
@@ -87,5 +84,5 @@ public class Season implements Parcelable {
         return 0;
     }
 
-    // Le reste de votre implémentation Parcelable
+
 }

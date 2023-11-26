@@ -1,4 +1,4 @@
-package com.example.watch_tracker;  //
+package com.example.watch_tracker;
 
 import android.content.Context;
 import android.view.LayoutInflater;
