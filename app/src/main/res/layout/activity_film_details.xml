@@ -15,6 +15,7 @@
         tools:context=".FilmDetailsActivity"
         tools:layout_editor_absoluteY="-16dp">
 
+
         <ImageView
             android:id="@+id/shareButton"
             android:layout_width="64dp"
@@ -22,12 +23,11 @@
             android:onClick="onShareButtonClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintHorizontal_bias="0.918"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976"
             app:srcCompat="@drawable/share" />
-
 
         <ImageView
             android:id="@+id/addButton"
@@ -116,10 +116,10 @@
             android:background="@drawable/star_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintHorizontal_bias="0.919"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titleTextView"
-            app:layout_constraintVertical_bias="0.179"
+            app:layout_constraintVertical_bias="0.173"
             app:srcCompat="@android:drawable/btn_star_big_off" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -147,7 +147,7 @@
             android:layout_width="55dp"
             android:layout_height="51dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="28dp"
             app:layout_constraintBottom_toTopOf="@+id/star"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.641"
