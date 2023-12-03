@@ -28,26 +28,34 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+//Déclaration de le classe Liste_personnelle
 public class Liste_personnelle extends AppCompatActivity implements RVAdapter.OnItemClickListener {
 
+    //Déclaration des variables
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
     private List<Movie> movieList;
     private ConstraintLayout constraintLayout;
     private EditText searchField;
 
+
+    //M2thode appelée lors de la création de l'activité
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liste_personnelle);
 
-        // détection d'appui sur les boutons
+        //Définition des références des boutons
         ImageView mask = findViewById(R.id.pas_vu_2);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
         ImageView mask7 = findViewById(R.id.bouton_plus);
+
+
+        //Définiton des écouteurs de clic pour les boutons de navigation
+
 
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +104,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
                 startActivity(it);
             }
         });
-        //initialisation rv
+        //Initialisation de la RecyclerView
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -104,9 +112,10 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         rvAdapter = new RVAdapter(this, movieList, this);
         recyclerView.setAdapter(rvAdapter);
 
+        //Récupération de la ConstraintLayout
         constraintLayout = findViewById(R.id.listeperso);
 
-        // champ de recherche
+        //Récupération du champ de recherche et ajout d'écouteurs
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,7 +137,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Masquer le clavier
+                    //Masquer le clavier
                     hideKeyboard();
                     return true;
                 }
@@ -141,7 +150,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    // Masquer le clavier
+                    //Masquer le clavier
                     hideKeyboard();
                     return true;
                 }
@@ -149,9 +158,10 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
             }
         });
 
-        // charge film
+        //Chargement des films
         loadMovies();
 
+        //Ajout d'un écouteur pour détecter la visibilité du clavier virtuel
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
@@ -172,6 +182,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         });
     }
 
+    //Méthode pour charger tous les films de l'utilisateur connecté
     private void loadMovies() { // affiche tous les films de l'utilisateur connecté
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -193,16 +204,18 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+                    //Gestion des erreurs de base de données
                 }
             });
         }
     }
 
+    //Méthode pour effectuer une recherche
     private void performSearch(String query) { // fait une recherche
         loadMovies(query);
     }
 
+    //Méthode pour charger les films correspondant à la recherche dans Firebase
     private void loadMovies(String query) {  // charge les film correspondant a la recherche et present dans firebase du user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -232,6 +245,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         }
     }
 
+    //Méthode appelée lorsqu'un élément de la RecyclerView est cliqué
     @Override
     public void onItemClick(Movie movie) {
         Intent intent = new Intent(Liste_personnelle.this, FilmDetailsActivity.class);
@@ -239,7 +253,7 @@ public class Liste_personnelle extends AppCompatActivity implements RVAdapter.On
         startActivity(intent);
     }
 
-    // masquer le clavier
+    //Méthode pour masquer le clavier virtuel
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
