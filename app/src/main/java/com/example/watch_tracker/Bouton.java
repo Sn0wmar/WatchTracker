@@ -24,9 +24,11 @@ import retrofit2.Response;
 
 public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickListener {
 
+    //Clé API et langage pour les requêtes à l'API TMDB
     private static final String API_KEY = "a5183ca5a42adb93356f8a7897bd6622";
     private static final String langage = "fr-FR";
 
+    //Composants de l'interface utilisateur
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
     private ConstraintLayout constraintLayout;
@@ -37,19 +39,20 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bouton);
 
-        // Initialisation de la RecyclerView
+        //Initialisation de la RecyclerView
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         constraintLayout = findViewById(R.id.Bouton);
         searchField = findViewById(R.id.searchField);
 
-        // détection d'appui sur les boutons
+        //Détection des clics sur les boutons
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
         ImageView mask5 = findViewById(R.id.liste);
 
+        //Navigation vers les différentes activités en fonction du bouton cliqué
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +93,9 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
             }
         });
 
+        //Gestionnaires de clavier
 
+        //Cacher le clavier si perte de focus niveau champ de recherche
         searchField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -101,7 +106,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
             }
         });
 
-
+        //Cacher le clavier lorsque la touche "Done" est pressée
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -113,10 +118,10 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
                 return false;
             }
         });
-        // recupere les contenus populaires
+        //Récupère les contenus populaires depuis l'API
         getTrendingContent();
 
-        // retire la recyclerview si le clavier est affiche a l'ecran
+        //Masque la recyclerview lorsque le clavier est affiché
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
@@ -152,6 +157,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
+    //Méthode pour récupérer les contenus populaires depuis l'API
     private void getTrendingContent() {
 
         Call<MovieResponse> call = TMDbApiClient.getTrendingContent(1); // demande a l'api de recuperer la page 1 des contenus populaires
@@ -173,6 +179,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
+    //Méthode pour effectuer une recherche
     private void performSearch(String query) {
         //on recherhe le contenu demande par user
         Call<MovieResponse> call = TMDbApiClient.getApiClient().searchAllContent(API_KEY, query, langage, 1);
@@ -194,6 +201,8 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
+
+    //Méthode appelée lorsqu'un élément de la RecyclerView est cliqué
     @Override
     public void onItemClick(Movie movie) {
         // si on clique sur un film on afffiche les details de celui-ci
@@ -202,7 +211,7 @@ public class Bouton extends AppCompatActivity implements RVAdapter.OnItemClickLi
         startActivity(intent);
     }
 
-    // methode pour cacher le clavier
+    //Méthode pour cacher le clavier
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
