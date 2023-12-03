@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+//Activité représentant la page "Vos Amis" de l'application
 public class vos_amis extends AppCompatActivity {
 
     @Override
@@ -13,6 +14,7 @@ public class vos_amis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vos_amis);
 
+        //Récupération des ImageView définies dans le layout
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -20,6 +22,7 @@ public class vos_amis extends AppCompatActivity {
         ImageView mask5 = findViewById(R.id.liste);
 
 
+        //Configuration du clic sur l'ImageView "Pas visionné"
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,6 +31,7 @@ public class vos_amis extends AppCompatActivity {
             }
         });
 
+        //Configuration du clic sur l'ImageView "En cours"
         mask2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +40,7 @@ public class vos_amis extends AppCompatActivity {
             }
         });
 
+        //Configuration du clic sur l'ImageView "Visionné"
         mask3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +50,7 @@ public class vos_amis extends AppCompatActivity {
             }
         });
 
+        //Configuration du clic sur l'ImageView "Profil"
         mask4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +59,7 @@ public class vos_amis extends AppCompatActivity {
             }
         });
 
+        //Configuration du clic sur l'ImageView "Liste personnelle"
         mask5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
