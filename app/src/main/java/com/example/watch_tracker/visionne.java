@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+//Activité représentant la page "Visionné" de l'application
 public class visionne extends AppCompatActivity implements RVAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
@@ -41,6 +42,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visionne);
 
+        //Récupération des ImageView définies dans le layout
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -48,6 +50,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         ImageView mask5 = findViewById(R.id.liste);
         ImageView mask7 = findViewById(R.id.bouton_plus);
 
+        //Configuration du clic sur les ImageView pour naviguer vers d'autres activités
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +99,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
+        //Configuration du RecyclerView pour afficher la liste de films
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -103,9 +107,10 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         rvAdapter = new RVAdapter(this, movieList, this);
         recyclerView.setAdapter(rvAdapter);
 
+        //Récupération du layout contenant le champ de recherche
         constraintLayout = findViewById(R.id.Vu);
 
-        //champ de recherche
+        //Configuration du champ de recherche
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,12 +127,12 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-
+        //Configuration de l'action "Done" du clavier pour masquer le clavier
         searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Masquer le clavier
+                    //Masquer le clavier
                     hideKeyboard();
                     return true;
                 }
@@ -136,6 +141,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         });
 
 
+        //Configuration de la touche "Enter" du clavier pour masquer le clavier
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -148,8 +154,10 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        loadMovies();
+        loadMovies(); //Chargement initial des films avec statut "Vu"
 
+
+        //Observateur pour détecter le changement au niveau du layout
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
@@ -170,6 +178,7 @@ public class visionne extends AppCompatActivity implements RVAdapter.OnItemClick
         });
     }
 
+    //Méthode pour charger les films avec statut "Vu" depuis Firebase
     private void loadMovies() { // charge les film de firebase avec statut "Vu"
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
