@@ -35,6 +35,7 @@ import android.widget.ArrayAdapter;
 public class FilmDetailsActivity extends AppCompatActivity {
 
 
+
     private TextView titleTextView;
     private RecyclerView rvDescription;
     private DescriptionAdapter descriptionAdapter;
@@ -51,19 +52,21 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
 
 
-
+        //Initialisation des composants d'interface utilisateur
         titleTextView = findViewById(R.id.titleTextView);
         rvDescription = findViewById(R.id.rv_description);
+        rvEpisodes = findViewById(R.id.rvEpisodes);
+        spinnerSeason = findViewById(R.id.spinnerSeason);
 
+        //Initialisation de l'adaptateur pour la liste de descriptions
         descriptionAdapter = new DescriptionAdapter(descriptionList);
         rvDescription.setAdapter(descriptionAdapter);
         rvDescription.setLayoutManager(new LinearLayoutManager(this));
 
-        rvEpisodes = findViewById(R.id.rvEpisodes);
-        spinnerSeason = findViewById(R.id.spinnerSeason);
 
 
-        // détection d'appui sur les boutons
+
+        //Détection d'appui sur les boutons de l'interface
         ImageView mask = findViewById(R.id.retourButton);
         ImageView mask2 = findViewById(R.id.addButton);
         ImageView mask3 = findViewById(R.id.shareButton);
@@ -73,6 +76,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         ImageView mask7 = findViewById(R.id.encours);
         ImageView mask8 = findViewById(R.id.vu);
 
+        //Retour à l'activité précèdente
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,21 +84,22 @@ public class FilmDetailsActivity extends AppCompatActivity {
             } // ferme activity
         });
 
+        //Ajout du film dans la liste de l'user
         mask2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //recup info user
+                //Récupère info user
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     String userId = currentUser.getUid();
 
-                    //ajout film dans firebase
+                    //Ajout film dans Firebase
                     DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
                     Movie movie = getIntent().getParcelableExtra("movie");
 
-                    // ajout d'un statut par defaut
+                    //Ajout d'un statut par défaut
                     movie.setStatut("Pas vu");
-                    // ajout dans la liste des non favori
+                    //Ajout dans la liste des non favoris
                     movie.setFav("non");
 
                     userMoviesRef.child(String.valueOf(movie.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,7 +108,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                             Log.d("Firebase", "onDataChange: dataSnapshot.exists() = " + dataSnapshot.exists());
 
                             if (!dataSnapshot.exists()) {
-                                // Le film n'est pas encore enregistré, ajoutez-le à la base de données
+                                //Le film n'est pas encore enregistré, on l'ajoute à la base de données
                                 userMoviesRef.child(String.valueOf(movie.getId())).setValue(movie);
                                 Toast.makeText(FilmDetailsActivity.this, "Contenu enregistré avec succès", Toast.LENGTH_SHORT).show();
                             } else {
@@ -129,12 +134,13 @@ public class FilmDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Movie movie = getIntent().getParcelableExtra("movie");
 
-                if (movie != null) { // partage film
+                if (movie != null) { //Partage des informations du film
                     String title = movie.getTitle();
                     String description = movie.getOverview();
 
                     String shareText = title + "\n" + description;
 
+                    //Création de l'intent de partage
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
@@ -149,6 +155,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         });
 
 
+        //Suppression du fil à la liste de l'user
         mask4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,7 +169,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
                     Movie movie = getIntent().getParcelableExtra("movie");
 
-                    if (movie != null) {// suprimer film
+                    if (movie != null) {//Suppression du film de Firebase
 
 
                         DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies").child(String.valueOf(movie.getId()));
@@ -188,8 +195,9 @@ public class FilmDetailsActivity extends AppCompatActivity {
             }
         });
 
+        //Ajout/Retrait du film des favoris
         mask5.setOnClickListener(new View.OnClickListener() {
-            //modifie la valeur de l'attribut Fav
+            //Modifie la valeur de l'attribut Fav
             @Override
             public void onClick(View view) {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -207,17 +215,17 @@ public class FilmDetailsActivity extends AppCompatActivity {
                                 .child("movies")
                                 .child(String.valueOf(movie.getId()));
 
-                        // Récupérez la valeur actuelle de Fav
+                        //Récupère la valeur actuelle de Fav
                         userMoviesRef.child("fav").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     String ancienneValeur = dataSnapshot.getValue(String.class);
 
-                                    // Basculez entre "oui" et "non"
+                                    //Bascule entre "oui" et "non"
                                     String nouvelleValeur = (ancienneValeur.equals("oui")) ? "non" : "oui";
 
-                                    // Mettez à jour la valeur dans la base de données
+                                    //Mettre à jour la valeur dans la base de données
                                     userMoviesRef.child("fav").setValue(nouvelleValeur);
 
 
@@ -242,7 +250,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         });
 
 
-        //changement de statut
+        //Gestion du changement de statut "Pas vu" du film
         mask6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,7 +258,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
                 if (currentUser != null) {
                     String userId = currentUser.getUid();
-
+                    //Récupère les informations du film
                     Movie movie = getIntent().getParcelableExtra("movie");
 
                     if (movie != null) {
@@ -261,19 +269,19 @@ public class FilmDetailsActivity extends AppCompatActivity {
                                 .child("movies")
                                 .child(String.valueOf(movie.getId()));
 
-                        // Mettez à jour le statut directement
+                        //Mis à jour du statut directement dans la base de données
                         userMoviesRef.child("statut").setValue("Pas vu")
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        // La mise à jour du statut a réussi
+                                        //La mise à jour du statut a réussi
                                         Toast.makeText(FilmDetailsActivity.this, "Statut mis à jour avec succès", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        // La mise à jour du statut a échoué
+                                        //La mise à jour du statut a échoué
                                         Toast.makeText(FilmDetailsActivity.this, "Échec de la mise à jour du statut : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -285,6 +293,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         });
 
 
+        //Gestion du chargement de statut "En cours" du film
         mask7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -293,6 +302,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                 if (currentUser != null) {
                     String userId = currentUser.getUid();
 
+                    //Récupération des informations du film
                     Movie movie = getIntent().getParcelableExtra("movie");
 
                     if (movie != null) {
@@ -303,19 +313,19 @@ public class FilmDetailsActivity extends AppCompatActivity {
                                 .child("movies")
                                 .child(String.valueOf(movie.getId()));
 
-                        // Mettez à jour le statut directement
+                        //Mis à jour le statut directement dans la base de donées
                         userMoviesRef.child("statut").setValue("En cours")
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        // La mise à jour du statut a réussi
+                                        //La mise à jour du statut a réussi
                                         Toast.makeText(FilmDetailsActivity.this, "Statut mis à jour avec succès", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        // La mise à jour du statut a échoué
+                                        //La mise à jour du statut a échoué
                                         Toast.makeText(FilmDetailsActivity.this, "Échec de la mise à jour du statut : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -325,6 +335,8 @@ public class FilmDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Gestion du changement de statut "Vu" du film
         mask8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -343,19 +355,19 @@ public class FilmDetailsActivity extends AppCompatActivity {
                                 .child("movies")
                                 .child(String.valueOf(movie.getId()));
 
-                        // Mettez à jour le statut directement
+                        //Mis à jour le statut directement
                         userMoviesRef.child("statut").setValue("Vu")
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        // La mise à jour du statut a réussi
+                                        //La mise à jour du statut a réussi
                                         Toast.makeText(FilmDetailsActivity.this, "Statut mis à jour avec succès", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        // La mise à jour du statut a échoué
+                                        //La mise à jour du statut a échoué
                                         Toast.makeText(FilmDetailsActivity.this, "Échec de la mise à jour du statut : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -366,18 +378,18 @@ public class FilmDetailsActivity extends AppCompatActivity {
             }
         });
 
-        descriptionList = new ArrayList<>();   //
+        descriptionList = new ArrayList<>();   //Initialisation de la liste de description
 
 
-        // Récupérez les informations du film
+        //Récupère les informations du film
         Movie movie = getIntent().getParcelableExtra("movie");
 
 
-        // Affichez les informations
+        //Affichage des informations du film
         if (movie != null) {
             titleTextView.setText(movie.getTitle());
 
-            // Chargez l'affiche du film
+            //Chargement de l'affiche du film
             ImageView moviePoster = findViewById(R.id.affiche);
             Picasso.get()
                     .load(movie.getPosterPath())
@@ -385,7 +397,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     .into(moviePoster, new Callback() {
                         @Override
                         public void onSuccess() {
-                            // affiche chargée avec succès
+                            //Affiche chargée avec succès
                         }
 
                         @Override
@@ -397,16 +409,16 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
 
 
-            // Initialisez la liste de description
+            //Initialise la liste de description
             descriptionList = new ArrayList<>();
 
 
 
                 if (movie.getSeasons() != null && !movie.getSeasons().isEmpty()) {
-                    // Affichez les saisons et les épisodes
+                    //Affiche les saisons et les épisodes
                     List<String> seasonDescriptions = new ArrayList<>();
                     for (Season season : movie.getSeasons()) {
-                        // Ajoutez les descriptions des saisons à la liste
+                        //Ajoute les descriptions des saisons à la liste
                         seasonDescriptions.add("Season " + season.getSeasonNumber());
                     }
 
@@ -414,13 +426,13 @@ public class FilmDetailsActivity extends AppCompatActivity {
                     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerSeason.setAdapter(spinnerAdapter);
 
-                    // Initialisez le RecyclerView des épisodes
+                    //Initialise le RecyclerView des épisodes
                     List<Episode> episodes = movie.getSeasons().get(0).getEpisodes();
                     EpisodeAdapter episodeAdapter = new EpisodeAdapter(this, episodes);
                     rvEpisodes.setLayoutManager(new LinearLayoutManager(this));
                     rvEpisodes.setAdapter(episodeAdapter);
                 } else {
-                    // Affichez la description du film
+                    //Affiche la description du film
                     descriptionList.add(movie.getOverview());
                     DescriptionAdapter descriptionAdapter = new DescriptionAdapter(descriptionList);
                     rvDescription.setLayoutManager(new LinearLayoutManager(this));
