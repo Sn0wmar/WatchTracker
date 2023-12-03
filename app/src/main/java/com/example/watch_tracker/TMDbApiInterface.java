@@ -6,10 +6,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-// Interface décrivant les points d'accès de l'API TMDb
+//Interface décrivant les points d'accès de l'API TMDb
 public interface TMDbApiInterface {
 
-    // Méthode pour récupérer le contenu tendance de la semaine
+    //Méthode pour récupérer le contenu tendance de la semaine
     @GET("trending/all/week")
     Call<MovieResponse> getTrendingContent(
             @Query("api_key") String apiKey,
@@ -17,7 +17,7 @@ public interface TMDbApiInterface {
             @Query("language") String language
     );
 
-    // Méthode pour récupérer les détails d'un film ou d'une série spécifique
+    //Méthode pour récupérer les détails d'un film ou d'une série spécifique
     @GET("media/{id}")
     Call<MovieResponse> getMovieDetails(
             @Path("id") int idFilm,
@@ -25,7 +25,7 @@ public interface TMDbApiInterface {
             @Query("language") String language
     );
 
-    // Méthode pour effectuer une recherche de contenu multi-catégorie
+    //Méthode pour effectuer une recherche de contenu multi-catégorie
     @GET("search/multi")
     Call<MovieResponse> searchAllContent(
             @Query("api_key") String apiKey,
