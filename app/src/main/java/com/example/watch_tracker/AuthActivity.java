@@ -1,3 +1,4 @@
+    //Importation des bibliothèques
     package com.example.watch_tracker;
 
     import android.content.Intent;
@@ -19,8 +20,11 @@
 
     public class AuthActivity extends AppCompatActivity {
 
+        //Déclaration des composants d'interface utilisateur
         private EditText emailField, passwordField;
         private Button loginButton, registerButton, resetpassword;
+
+        //Instance d'authentification Firebase
         private FirebaseAuth mAuth;
 
         @Override
@@ -28,18 +32,18 @@
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_auth);
 
-            //declarations des composant du layout
+            //Déclarations des composants du layout, interface utilisateur
             emailField = findViewById(R.id.emailField);
             passwordField = findViewById(R.id.passwordField);
             loginButton = findViewById(R.id.loginButton);
             registerButton = findViewById(R.id.inscriptionButton);
             resetpassword = findViewById(R.id.forgotmdp);
 
-            //declaration de l'authentification Firebase
+            //Initialisation de l'authentification Firebase
             mAuth = FirebaseAuth.getInstance();
 
 
-            //quand on clique sur le bouton se connecter on lance la fonction de connexion
+            //Lorsqu'on clique sur le bouton "se connecter" on appelle la méthode loginUser()
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -47,7 +51,7 @@
                 }
             });
 
-            //quand on clique sur le bouton s'inscrire on lance InscriptionActivity
+            //Lorsqu'on clique sur le bouton "s'inscrire", on navigue vers InscriptionActivity
             registerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -56,7 +60,7 @@
                 }
             });
 
-            //quand on clique sur le bouton mot de passe oublie on lance la fonction resetPassword
+            //Lorsqu'on clique sur le bouton "mot de passe oublié", on lance appelle la méthode resetPassword
             resetpassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -65,20 +69,21 @@
             });
         }
 
+        //Méthode pour gérer la connexion de l'utilisateur
         private void loginUser() {
-            // on recupere ce qui à ete ecris par user
+            // Récupère l'email et le mot de passe saisis
             String email = emailField.getText().toString();
             String password = passwordField.getText().toString();
-            //on connecte user
+            //On tente un connexion utilisateur en utilisateur en utilisateur l'authentification Firebase
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) { //si on a reussi a connecter on ouvre liste perso
+                            if (task.isSuccessful()) { //Si la connexion réussit, on ouvre l'activité de la liste personnelle
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(AuthActivity.this, Liste_personnelle.class);
                                 startActivity(intent);
-                            } else { //sinon on ecris un message d'erreur
+                            } else { //Si la connexion échoue, afficher un message d'erreur
                                 Toast.makeText(AuthActivity.this, "Échec de l'authentification", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -86,11 +91,12 @@
         }
 
 
+        //Méthode pour gérer la réinitialisation du mot de passe
         private void resetPassword() {
-            //on recupere le mail saisi
+            //On récupère l'email saisi
             String email = emailField.getText().toString();
-            if (!email.isEmpty()) { //si le mail est pas vide
-                // on envoi un mail de reinitialisation
+            if (!email.isEmpty()) { //Vérifier si l'email n'est pas vide
+                // On envoie un email de  de réinitialisation du mot de passe et afficher un message en fonction du succès/échec
                 mAuth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -102,7 +108,7 @@
                                 }
                             }
                         });
-            } else { // s'il n'y a pas de mail demande a l'utilisateur d'en ecrire un
+            } else { // Si aucun email n'est saisi, demander à l'utilisateur d'entrer un email
                 Toast.makeText(AuthActivity.this, "Merci de saisir un email", Toast.LENGTH_SHORT).show();
             }
         }
