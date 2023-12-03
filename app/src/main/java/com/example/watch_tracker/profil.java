@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import android.widget.Toast;
 
-
+//Déclaration de la classe Profil
 public class profil extends AppCompatActivity implements RVAdapter.OnItemClickListener {
 
+    //Déclaration des variables
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
     private List<Movie> movieList;
@@ -33,8 +34,9 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profil);
 
-        ImageView mask = findViewById(R.id.pas_vu);
 
+        //Détection d'appui sur les boutons
+        ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
         ImageView mask4 = findViewById(R.id.profil);
@@ -44,6 +46,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         ImageView mask8 = findViewById(R.id.ami);
         ImageView mask9 = findViewById(R.id.info);
 
+        //Définition des actions pour chaque bouton
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +120,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
             }
         });
 
+        //Initialisation RV
 
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -132,8 +136,10 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         constraintLayout = findViewById(R.id.profils);
 
+        //Chargement des films favoris
         loadMovies();
 
+        //Gestion de la visibilité de la recyclerView en fonction du clavier
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
 
@@ -157,7 +163,7 @@ public class profil extends AppCompatActivity implements RVAdapter.OnItemClickLi
         });
     }
 
-    private void loadMovies() { // charge les film qui on Fav = "oui"
+    private void loadMovies() { //Charge les film qui on Fav = "oui"
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
