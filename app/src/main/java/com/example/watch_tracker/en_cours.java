@@ -41,7 +41,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.en_cours);
 
-        // détection d'appui sur les boutons
+        //Détection d'appui sur les boutons
         ImageView mask = findViewById(R.id.pas_vu);
         ImageView mask2 = findViewById(R.id.en_cours);
         ImageView mask3 = findViewById(R.id.vu);
@@ -49,6 +49,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         ImageView mask5 = findViewById(R.id.liste);
         ImageView mask7 = findViewById(R.id.bouton_plus);
 
+        //Redirection vs différentes activités en fonction des boutons cliqués
         mask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +98,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        //initialisation rv
+        //Initialisation de la RecyclerView
         recyclerView = findViewById(R.id.rv_movies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -107,7 +108,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
 
         constraintLayout = findViewById(R.id.encours);
 
-        // champ de recherche
+        //Champ de recherche
         searchField = findViewById(R.id.searchField);
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -125,11 +126,12 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         });
 
 
+        //Gestion des actions liées au clavier lors de la recherche
         searchField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Cacher le clavier si user n'ecris pas
+                    //Cacher le clavier si l'utilisateur n'écrit pas
                     hideKeyboard();
                     return true;
                 }
@@ -138,6 +140,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         });
 
 
+        //Gestion des actions liées au clavier lors de la recherche
         searchField.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -150,12 +153,12 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
             }
         });
 
-        // charge les films
+        //Chargement des films en cours
         loadMovies();
 
         constraintLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             private int previousHeight;
-            // retire la rv quand le clavier est affiche a l'ecran
+            //Retire la RecyclerView quand le clavier est affiché à l'écran
             @Override
             public boolean onPreDraw() {
                 int height = constraintLayout.getHeight();
@@ -173,57 +176,60 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         });
     }
 
+    //Chargement des films en cours depuis la base de donées Firebase
     private void loadMovies() {
         //recupere info user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (currentUser != null) {
-            //recupere id user
+            //Récupère id user
             String userId = currentUser.getUid();
 
-            // recupere les films de user
+            //Récupère les films de user
             DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
             userMoviesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // vide la liste
+                    //Vide la liste
                     movieList.clear();
                     for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
-                        // regarde tous les films de user
+                        //Regarde tout les films de user
                         Movie movie = movieSnapshot.getValue(Movie.class);
-                        if (movie != null && "En cours".equals(movie.getStatut())) { // si different de nul et à le statut "En cours"
-                            movieList.add(movie); //on ajoute a la liste de film
+                        if (movie != null && "En cours".equals(movie.getStatut())) { //Si différent de nul et au statut "En cours"
+                            movieList.add(movie); //On ajoute à la liste de film
                         }
                     }
-                    rvAdapter.notifyDataSetChanged(); // afficher la liste
+                    rvAdapter.notifyDataSetChanged(); //Affiche la liste
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+                    //Gestion des erreurs de base de données
                 }
             });
         }
     }
 
+    //Effectue la recherche des films en cours en fonction de la requête de l'user
     private void performSearch(String query) {
         loadMovies(query);
     }
 
+    //Effectue la recherche des films en cours en fonction de la requête de l'user
     private void loadMovies(String query) {
-        // recup info user
+        //Récupère info user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            //recup id user
+            //Récupère id user
             String userId = currentUser.getUid();
-           //  recherche dans la firebase le contenu correspondant a ce que user à ecris
+           //Recherche dans la firebase le contenu correspondant à ce que user à écrit
             DatabaseReference userMoviesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("movies");
             Query searchQuery = userMoviesRef.orderByChild("title").startAt(query).endAt(query + "\uf8ff");
 
             searchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    movieList.clear(); // vide la liste
+                    movieList.clear(); //Vide la liste
                     for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
                         Movie movie = movieSnapshot.getValue(Movie.class);
                         if (movie != null && "En cours".equals(movie.getStatut())) {
@@ -235,7 +241,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Gestion des erreurs de base de données
+                    //Gestion des erreurs de base de données
                 }
             });
         }
@@ -248,7 +254,7 @@ public class en_cours extends AppCompatActivity implements RVAdapter.OnItemClick
         startActivity(intent);
     }
 
-    // Fonction pour masquer le clavier
+    //Fonction pour masquer le clavier
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
